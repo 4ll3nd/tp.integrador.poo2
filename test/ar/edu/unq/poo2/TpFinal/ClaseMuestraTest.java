@@ -1,4 +1,4 @@
-package ar.edu.unq.poo2.Tpfinal;
+package ar.edu.unq.poo2.TpFinal;
 
 import static org.junit.jupiter.api.Assertions.*;
 
