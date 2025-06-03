@@ -88,5 +88,14 @@ class UbicacionTest {
 		
 		assertEquals(List.of(ubiMock1, ubiMock2, ubiMock3), result);
 	}
+	
+	
+	
+	@Test 
+	void muestrasATest() {
+		//Duda de enunciado Dado Una Muestra -Como Conozco a las demas muestras?-
+		// Si tengo que pasar Una Lista De Muestras -no seria mejor que se encargue una muestra?-
+		// Se refiere a que se conocoe a todas las muestras que estan en la misma ubicacion?- Como se conoce a todas esas muestras?-
+	}
 
 }
