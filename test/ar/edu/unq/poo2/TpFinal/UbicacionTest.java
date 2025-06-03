@@ -40,7 +40,9 @@ class UbicacionTest {
 		//
 		double distanciaRedondeada = Math.round(distanciaTotal);
 
+		// Verify
 		verify(ubiMock1).getLongitud();
+		verify(ubiMock1).getLatitud();
 		assertEquals(604d, distanciaRedondeada);
 	}
 
@@ -52,6 +54,39 @@ class UbicacionTest {
 	@Test
 	void getterLongitudTest() {
 		assertEquals(400, ubiMain.getLongitud());
+	}
+
+	@Test
+	void ubicacionesADistancia0UbicacionesTest() {
+		this.setearMetodosMock();
+
+		List<Ubicacion> listaDeUbi = List.of(ubiMock1, ubiMock2, ubiMock3);
+
+		List<Ubicacion> result = ubiMain.ubicacionesA(300d, listaDeUbi);
+
+		assertEquals(List.of(), result);
+	}
+
+	void setearMetodosMock() {
+		when(this.ubiMock1.getLatitud()).thenReturn(200);
+		when(this.ubiMock1.getLongitud()).thenReturn(1000);
+
+		when(this.ubiMock2.getLatitud()).thenReturn(225);
+		when(this.ubiMock2.getLongitud()).thenReturn(1000);
+
+		when(this.ubiMock3.getLatitud()).thenReturn(215);
+		when(this.ubiMock3.getLongitud()).thenReturn(1000);
+	}
+
+	@Test
+	void ubicacionesADistanciaTodasLasUbicacionesTest() {
+		this.setearMetodosMock();
+		
+		List<Ubicacion> listaDeUbi = List.of(ubiMock1, ubiMock2, ubiMock3);
+
+		List<Ubicacion> result = ubiMain.ubicacionesA(1000d, listaDeUbi);
+		
+		assertEquals(List.of(ubiMock1, ubiMock2, ubiMock3), result);
 	}
 
 }

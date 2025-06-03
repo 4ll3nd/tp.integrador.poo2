@@ -1,5 +1,7 @@
 package ar.edu.unq.poo2.TpFinal;
 
+import java.util.List;
+
 public class Ubicacion {
 
 	private int latitud;
@@ -28,6 +30,10 @@ public class Ubicacion {
 
 	public int getLongitud() {
 		return longitud;
+	}
+
+	public List<Ubicacion> ubicacionesA(double km, List<Ubicacion> list) {
+		return list.stream().filter(u -> this.distancia(u) <= km).toList();
 	}
 
 }
