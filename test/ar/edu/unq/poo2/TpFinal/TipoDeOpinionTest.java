@@ -6,14 +6,19 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class TipoDeOpinionTest {
+	
+	ITipoDeOpinion tipoDeOpinion;
 
 	@BeforeEach
 	void setUp() throws Exception {
+		
+		tipoDeOpinion = new Ninguna();
 	}
 
 	@Test
-	void test() {
-		fail("Not yet implemented");
+	void test_unaOpinionTieneUnNombre() {
+		
+		assertEquals("Ninguna", tipoDeOpinion.getOpinion());
 	}
 
 }
