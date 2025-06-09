@@ -36,4 +36,11 @@ public class Ubicacion {
 		return list.stream().filter(u -> this.distancia(u) <= km).toList();
 	}
 
+	public List<Muestra> muestrasA(double km, Muestra m1, List<Muestra> listM) {
+
+		Ubicacion ubiPrincipal = m1.getUbicacion();
+
+		return listM.stream().filter(m -> ubiPrincipal.distancia(m.getUbicacion()) <= km).toList();
+	}
+
 }

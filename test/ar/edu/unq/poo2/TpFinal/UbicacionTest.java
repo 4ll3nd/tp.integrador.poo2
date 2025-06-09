@@ -14,6 +14,10 @@ class UbicacionTest {
 	private Ubicacion ubiMock2;
 	private Ubicacion ubiMock3;
 	private List<Ubicacion> listaDeUbi;
+	private Muestra muestraMock1;
+	private Muestra muestraMock2;
+	private Muestra muestraMock3;
+	private Muestra muestraMock4;
 
 	@BeforeEach
 	void setUp() throws Exception {
@@ -21,10 +25,17 @@ class UbicacionTest {
 		// SUT
 		ubiMain = new Ubicacion(133, 400);
 
-		// MOCK SET
+		// MOCK SET DE UBICACION
 		ubiMock1 = mock(Ubicacion.class);
 		ubiMock2 = mock(Ubicacion.class);
 		ubiMock3 = mock(Ubicacion.class);
+
+		// MOCK SET DE MUESTRA
+		muestraMock1 = mock(Muestra.class);
+		muestraMock2 = mock(Muestra.class);
+		muestraMock3 = mock(Muestra.class);
+		muestraMock4 = mock(Muestra.class);
+
 	}
 
 	@Test
@@ -67,6 +78,17 @@ class UbicacionTest {
 		assertEquals(List.of(), result);
 	}
 
+	@Test
+	void ubicacionesADistanciaTodasLasUbicacionesTest() {
+		this.setearMetodosMock();
+
+		List<Ubicacion> listaDeUbi = List.of(ubiMock1, ubiMock2, ubiMock3);
+
+		List<Ubicacion> result = ubiMain.ubicacionesA(1000d, listaDeUbi);
+
+		assertEquals(List.of(ubiMock1, ubiMock2, ubiMock3), result);
+	}
+
 	void setearMetodosMock() {
 		when(this.ubiMock1.getLatitud()).thenReturn(200);
 		when(this.ubiMock1.getLongitud()).thenReturn(1000);
@@ -79,23 +101,26 @@ class UbicacionTest {
 	}
 
 	@Test
-	void ubicacionesADistanciaTodasLasUbicacionesTest() {
-		this.setearMetodosMock();
-		
-		List<Ubicacion> listaDeUbi = List.of(ubiMock1, ubiMock2, ubiMock3);
+	void muestrasADistancia0MuestrasTest() {
+		//
 
-		List<Ubicacion> result = ubiMain.ubicacionesA(1000d, listaDeUbi);
+		when(muestraMock1.getUbicacion()).thenReturn(ubiMock1);
+		when(muestraMock2.getUbicacion()).thenReturn(ubiMock2);
+		when(muestraMock3.getUbicacion()).thenReturn(ubiMock3);
 		
-		assertEquals(List.of(ubiMock1, ubiMock2, ubiMock3), result);
-	}
-	
-	
-	
-	@Test 
-	void muestrasATest() {
-		//Duda de enunciado Dado Una Muestra -Como Conozco a las demas muestras?-
-		// Si tengo que pasar Una Lista De Muestras -no seria mejor que se encargue una muestra?-
-		// Se refiere a que se conocoe a todas las muestras que estan en la misma ubicacion?- Como se conoce a todas esas muestras?-
+		when(ubiMock1.distancia(ubiMock2)).thenReturn(30d);
+		when(ubiMock1.distancia(ubiMock3)).thenReturn(40d);
+
+
+		List<Muestra> muestrasResult = ubiMain.muestrasA(2, muestraMock1, List.of(muestraMock2, muestraMock3));
+
+		// Verify muestras
+		verify(muestraMock1).getUbicacion();
+		verify(muestraMock2).getUbicacion();
+		verify(muestraMock3).getUbicacion();
+
+		assertEquals(List.of(), muestrasResult);
+
 	}
 
 }
