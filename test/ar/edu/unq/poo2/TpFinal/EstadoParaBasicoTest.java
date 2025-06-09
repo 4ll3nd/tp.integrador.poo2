@@ -25,7 +25,7 @@ class EstadoParaBasicoTest {
 	@Test
 	void test_unEstadoParaBasicoCambiaAExperto() {
 
-		estado.cambiarCategoria(participante);
+		estado.subirCategoria(participante);
 		
 		verify(participante).setEstado(any());
 	}

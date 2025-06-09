@@ -1,9 +1,9 @@
 package ar.edu.unq.poo2.TpFinal;
 
-public class EstadoParaEspecialista implements IEstadoDeCategoria {
+public class EstadoParaEspecialista extends EstadoDeCategoria {
 
 	@Override
-	public void cambiarCategoria(Participante unParticipante) {
+	public void subirCategoria(Participante unParticipante) {
 		// TODO Auto-generated method stub
 
 	}
@@ -13,5 +13,6 @@ public class EstadoParaEspecialista implements IEstadoDeCategoria {
 		// TODO Auto-generated method stub
 
 	}
+
 
 }

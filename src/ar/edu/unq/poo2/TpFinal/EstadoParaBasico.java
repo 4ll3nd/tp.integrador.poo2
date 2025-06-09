@@ -2,10 +2,10 @@ package ar.edu.unq.poo2.TpFinal;
 
 import java.time.LocalDate;
 
-class EstadoParaBasico implements IEstadoDeCategoria {
+class EstadoParaBasico extends EstadoDeCategoria {
 
 	@Override
-	public void cambiarCategoria(Participante unParticipante) {
+	public void subirCategoria(Participante unParticipante) {
 		
 		unParticipante.setEstado(new EstadoParaExperto());
 		
@@ -15,9 +15,6 @@ class EstadoParaBasico implements IEstadoDeCategoria {
 	public void opinar(ITipoDeOpinion tipoDeOpinion, Muestra unaMuestra, Participante unParticipante) {
 		
 		IOpinion unaOpinion = new Opinion(LocalDate.now(), unParticipante.getId(), Voto.VotoDeBasico, tipoDeOpinion);
-		unParticipante.agregarOpinion(unaOpinion);
-		unaMuestra.agregarOpinion(unaOpinion);
+		agregar(unaOpinion, unaMuestra, unParticipante);	
 	}
-
-
 }
