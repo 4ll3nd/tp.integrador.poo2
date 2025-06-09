@@ -15,13 +15,15 @@ class VinchucaTest {
 	void setUp() throws Exception {
 		
 		especie = mock(EspecieDeVinchuca.class);
-		tipoDeOpinion = new ChinceFoliada();
+		tipoDeOpinion = new Vinchuca(especie);
 	}
 
 	@Test
-	void test_unaOpinionTieneUnNombre() {
+	void test_unaOpinionDeVinchucaTieneUnNombre() {
 		
-		assertEquals("Chinche Foliada", tipoDeOpinion.getOpinion());
+		when(especie.getNombre()).thenReturn("Guasayana");
+		
+		assertEquals("Guasayana", tipoDeOpinion.getOpinion());
 	}
 
 }
