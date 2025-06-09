@@ -9,7 +9,7 @@ public class Opinion implements IOpinion {
 	private Voto voto;
 	private ITipoDeOpinion tipoDeOpinion;
 
-	public Opinion(LocalDate unaFecha, int id, Voto unVoto, ITipoDeOpinion tipoDeOpinion) {
+	public Opinion(LocalDate unaFecha, Integer id, Voto unVoto, ITipoDeOpinion tipoDeOpinion) {
 		
 		setFecha(unaFecha);
 		setId(id);
@@ -29,7 +29,7 @@ public class Opinion implements IOpinion {
 		
 	}
 
-	private void setId(int id) {
+	private void setId(Integer id) {
 		
 		this.id = id;
 	}
