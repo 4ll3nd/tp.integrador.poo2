@@ -1,6 +1,5 @@
 package ar.edu.unq.poo2.TpFinal;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 import org.junit.jupiter.api.BeforeEach;

@@ -3,7 +3,6 @@ package ar.edu.unq.poo2.TpFinal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.BooleanSupplier;
 
 public class Participante {
 	
@@ -122,6 +121,17 @@ public class Participante {
 	public void cambiarCategoria() {
 		
 		getEstado().cambiarCategoria(this);
+	}
+
+	void comenzarDeCero() {
+		
+		setEstado(new EstadoParaBasico());
+	}
+
+	void validarConocimiento() {
+		
+		setEstado(new EstadoParaEspecialista());
+		
 	}
 
 

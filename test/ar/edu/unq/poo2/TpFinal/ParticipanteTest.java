@@ -80,5 +80,4 @@ class ParticipanteTest {
 		
 		assertFalse(participante.esPromocionable());
 	}
-
 }

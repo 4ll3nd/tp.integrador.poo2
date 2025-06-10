@@ -1,20 +1,13 @@
 package ar.edu.unq.poo2.TpFinal;
 
-public class ConocimientoNulo {
-
-	private String conocimiento;
+public class ConocimientoNulo extends ValidacionDeConocimiento {
 
 	public ConocimientoNulo(String conociminento) {
 		
-		setConocimiento(conociminento);
+		super(conociminento);
 	}
 
-	private void setConocimiento(String conociminento) {
-		
-		this.conocimiento = conociminento;
-		
-	}
-
+	@Override
 	public void validarA(Participante participante) {
 		
 		participante.comenzarDeCero();
