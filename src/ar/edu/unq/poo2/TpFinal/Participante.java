@@ -89,10 +89,10 @@ public class Participante {
 
 	Boolean esPromocionable() {
 		
-		return hayMuestrasEn(10) && hayOpinionesEn(20);
+		return hayCantidadDeMuestras(10) && hayCantidadDeOpiniones(20);
 	}
 
-	private Boolean hayOpinionesEn(Integer cantidad) {
+	private Boolean hayCantidadDeOpiniones(Integer cantidad) {
 		
 		return opinionesHace30Dias() == cantidad;
 	}
@@ -109,7 +109,7 @@ public class Participante {
 		return !fecha.isAfter(LocalDate.now()) && !fecha.isBefore(fechaHace30Dias);
 	}
 
-	private Boolean hayMuestrasEn(Integer cantidad) {
+	private Boolean hayCantidadDeMuestras(Integer cantidad) {
 		
 		return  muestrasHace30Dias() == cantidad;
 	}

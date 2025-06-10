@@ -1,6 +1,5 @@
 package ar.edu.unq.poo2.TpFinal;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -23,7 +22,7 @@ class EstadoParaExpertoTest {
 	}
 	
 	@Test
-	void test_unEstadoParaBasicoCambiaAExperto() {
+	void test_unEstadoParaExpertoSubeDeCategoria() {
 
 		estado.subirCategoria(participante);
 		
@@ -31,7 +30,7 @@ class EstadoParaExpertoTest {
 	}
 
 	@Test
-	void test_unEstadoParaBasicoGeneraUnaOpinionDeBasico() {
+	void test_unEstadoParaExpertoAgregaUnaOpinionAlParticipante() {
 		
 		estado.opinar(tipoDeOpinion, muestra, participante);
 		
@@ -39,7 +38,7 @@ class EstadoParaExpertoTest {
 	}
 	
 	@Test
-	void test_unEstadoParaBasicoLeEnviaLaOpinionALaMuestra() {
+	void test_unEstadoParaExpertoLeEnviaLaOpinionALaMuestra() {
 		
 		estado.opinar(tipoDeOpinion, muestra, participante);
 		
