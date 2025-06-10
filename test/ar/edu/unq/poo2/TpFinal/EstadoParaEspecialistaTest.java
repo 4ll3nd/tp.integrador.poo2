@@ -29,5 +29,13 @@ class EstadoParaEspecialistaTest {
 		
 		verify(participante).agregarOpinion(any());
 	}
+	
+	@Test
+	void test_unEstadoParaEspecialistaAgregaUnaOpinionALaMuestra() {
+		
+		estado.opinar(tipoDeOpinion, muestra, participante);
+		
+		verify(muestra).agregarOpinion(any());
+	}
 
 }
