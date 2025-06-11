@@ -10,13 +10,26 @@ public class Participante {
 	private List<IOpinion> opiniones;
 	private Integer id;
 	private EstadoDeCategoria estado;
+	private ValidacionDeConocimiento conocimiento;
 	
+	public Participante(Integer id, ConocimientoDeEspecialista conocimiento) {
+		
+		initialize(id);
+		conocimiento.validarA(this);
+	}
 	
 	public Participante(Integer id) {
 		
+		initialize(id);
+		this.conocimiento = new ConocimientoNulo("Sin conocimientos");
+		this.conocimiento.validarA(this);
+		
+	}
+	
+	private void initialize(Integer id) {
+		
 		initializeMuestras();
 		initializeOpiniones();
-		setEstado(new EstadoParaBasico());
 		this.id = id;
 	}
 
