@@ -3,7 +3,7 @@ package ar.edu.unq.poo2.TpFinal;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ZonaDeCobertura {
+public class ZonaDeCobertura implements IObserver {
 
 	private String nombre;
 	private Ubicacion epicentro;
