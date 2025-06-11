@@ -122,5 +122,27 @@ class UbicacionTest {
 		assertEquals(List.of(), muestrasResult);
 
 	}
+	
+	@Test
+	void muestrasADistancia1MuestraTest() {
+		
+		when(muestraMock1.getUbicacion()).thenReturn(ubiMock1);
+		when(muestraMock2.getUbicacion()).thenReturn(ubiMock2);
+		when(muestraMock3.getUbicacion()).thenReturn(ubiMock3);
+		
+		when(ubiMock1.distancia(ubiMock2)).thenReturn(30d);
+		when(ubiMock1.distancia(ubiMock3)).thenReturn(500d);
+
+
+		List<Muestra> muestrasResult = ubiMain.muestrasA(30, muestraMock1, List.of(muestraMock2, muestraMock3));
+
+		// Verify muestras
+		verify(muestraMock1).getUbicacion();
+		verify(muestraMock2).getUbicacion();
+		verify(muestraMock3).getUbicacion();
+
+		assertEquals(List.of(muestraMock2), muestrasResult);
+		
+	}
 
 }
