@@ -36,4 +36,12 @@ class EstadoParaExpertoTest {
 		
 		verify(muestra).agregarOpinion(any());
 	}
+	
+	@Test
+	void test_unEstadoParaExpertoBajaDeCategoria() {
+		
+		estado.bajarCategoria(participante);
+		
+		verify(participante).setEstado(any());
+	}
 }

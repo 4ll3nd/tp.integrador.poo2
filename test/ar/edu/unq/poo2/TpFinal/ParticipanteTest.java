@@ -105,11 +105,34 @@ class ParticipanteTest {
 	}
 
 	@Test
-	void test_unParticipanteCambiaDeCategoria()  {
+	void test_unParticipanteNoCambiaDeCategoriaSiNoEsPromocionable()  {
+		
+		participante.cambiarCategoria();
+		
+		assertFalse(participante.esPromocionable());
+	}
+	
+	@Test
+	void test_unParticipanteCambiaDeCategoriaSiEsPromocionable() throws Exception  {
+		
+		when(muestra.getFecha()).thenReturn(LocalDate.of(2025, 6, 5));
+		
+		agregarCantidadDeMuestras(participante, muestra, 11);
+		agregarCantidadDeOpiniones(participante, tipoDeOpinion, 21);
 		
 		participante.cambiarCategoria();
 		
 		assertTrue(participante.esPromocionable());
+	}
+	
+	@Test
+	void test_unParticipanteConConocimientoValidadoPuedeAgregarOpiniones() throws Exception  {
+		
+		Participante especialista = new Participante(1, new ConocimientoDeEspecialista("Detección de vinchucas"));
+		
+		especialista.opinar(tipoDeOpinion, muestra);
+		
+		verify(muestra).agregarOpinion(any());
 	}
 	
 	private void agregarCantidadDeMuestras(Participante participante, Muestra unaMuestra, int cantidad) {

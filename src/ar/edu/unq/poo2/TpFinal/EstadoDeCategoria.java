@@ -6,7 +6,7 @@ public abstract class EstadoDeCategoria {
 	void agregar(IOpinion unaOpinion, Muestra unaMuestra, Participante unParticipante) {
 		
 		unParticipante.agregarOpinion(unaOpinion);
-		unaMuestra.agregarOpinion(unaOpinion);
+		unaMuestra.agregarOpinion(unaOpinion); 
 		
 	}
 	
@@ -29,5 +29,6 @@ public abstract class EstadoDeCategoria {
 	protected void subirCategoria(Participante participante) {
 		
 	};
+	
 	public abstract void opinar(ITipoDeOpinion tipoDeOpinion, Muestra unaMuestra, Participante unParticipante);
 }
