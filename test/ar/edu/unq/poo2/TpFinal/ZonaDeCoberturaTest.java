@@ -13,12 +13,17 @@ class ZonaDeCoberturaTest {
 	private Ubicacion ubiMock;
 	private Ubicacion ubiMock2;
 	private Muestra muestraMock;
+	private ZonaDeCobertura zoneMock1;
+	private ZonaDeCobertura zoneMock2;
 
 	@BeforeEach
 	void setUp() throws Exception {
 
 		// Seteo de mocks
 		muestraMock = mock(Muestra.class);
+		zoneMock1 = mock(ZonaDeCobertura.class);
+		zoneMock2 = mock(ZonaDeCobertura.class);
+		
 
 		// Mock de ubicaciones
 		ubiMock2 = mock(Ubicacion.class);
@@ -82,6 +87,36 @@ class ZonaDeCoberturaTest {
 
 		// assert para saber si se agrego
 		assertEquals(1, zone0.getMuestras().size());
+	}
+
+	@Test
+	void testZonasSolapadas0Zonas() {
+		//SetUp
+		when(zoneMock1.getEpicentro()).thenReturn(ubiMock2);
+		when(ubiMock2.distancia(ubiMock)).thenReturn(711d);
+		when(zoneMock1.getRadio()).thenReturn(10d);
+		
+		//Excercise
+		List<ZonaDeCobertura> zonas = zone0.zonasSolapadas(List.of(zoneMock1));
+		
+		//Verify
+		
+		assertEquals(List.of(),zonas);
+	}
+	
+	@Test
+	void testZonasSolapadas1Zona() {
+		//SetUp
+		when(zoneMock1.getEpicentro()).thenReturn(ubiMock2);
+		when(ubiMock2.distancia(ubiMock)).thenReturn(400d);
+		when(zoneMock1.getRadio()).thenReturn(10d);
+		
+		//Excercise
+		List<ZonaDeCobertura> zonas = zone0.zonasSolapadas(List.of(zoneMock1));
+		
+		//Verify
+		
+		assertEquals(List.of(zoneMock1),zonas);
 	}
 
 }

@@ -45,4 +45,15 @@ public class ZonaDeCobertura implements IObserver {
 		return epicentro.distancia( muestra.getUbicacion()) <= this.radio;
 	}
 
+	public List<ZonaDeCobertura> zonasSolapadas(List<ZonaDeCobertura> listaDeZonas) {
+		return listaDeZonas.stream().filter(z -> this.estaSolapada(z)).toList();
+	}
+
+	private boolean estaSolapada(ZonaDeCobertura z) {
+		
+		return z.getEpicentro().distancia(this.epicentro) <= this.radio + z.getRadio();
+	}
+	
+	
+
 }
