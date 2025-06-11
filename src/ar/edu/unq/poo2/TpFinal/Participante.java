@@ -23,7 +23,6 @@ public class Participante {
 		initialize(id);
 		this.conocimiento = new ConocimientoNulo("Sin conocimientos");
 		this.conocimiento.validarA(this);
-		
 	}
 	
 	private void initialize(Integer id) {
@@ -101,12 +100,12 @@ public class Participante {
 
 	Boolean esPromocionable() {
 		
-		return hayCantidadDeMuestras(10) && hayCantidadDeOpiniones(20);
+		return hayMasCantidadDeMuestras(10) && hayMasCantidadDeOpiniones(20);
 	}
 
-	private Boolean hayCantidadDeOpiniones(Integer cantidad) {
+	private Boolean hayMasCantidadDeOpiniones(Integer cantidad) {
 		
-		return opinionesHace30Dias() == cantidad;
+		return opinionesHace30Dias() > cantidad;
 	}
 
 	private Integer opinionesHace30Dias() {
@@ -121,9 +120,9 @@ public class Participante {
 		return !fecha.isAfter(LocalDate.now()) && !fecha.isBefore(fechaHace30Dias);
 	}
 
-	private Boolean hayCantidadDeMuestras(Integer cantidad) {
+	private Boolean hayMasCantidadDeMuestras(Integer cantidad) {
 		
-		return  muestrasHace30Dias() == cantidad;
+		return muestrasHace30Dias() > cantidad;
 	}
 	
 	private Integer muestrasHace30Dias() {
