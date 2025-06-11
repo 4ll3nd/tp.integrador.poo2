@@ -16,11 +16,16 @@ public class Muestra {
 	public Muestra(EspecieVinchuca especie, Ubicacion ubicacion, LocalDate fechaDeSubida, IFoto foto,
 			Opinion opinion) {
 		this.especie = especie;
+		if(opinion.getVoto() == Voto.VotoExperto) {
+			this.estado = new EstadoStandBy();
+		} else {
+			this.estado = new EstadoNoVerificado();
+		}
 		this.opiniones.add(opinion);
 		this.ubicacion = ubicacion;
 		this.fechaDeSubida = fechaDeSubida;
 		this.foto = foto;
-		this.estado = new EstadoNoVerificadoTest();
+		
 	}
 
 	public EspecieVinchuca getEspecie() {
@@ -57,6 +62,10 @@ public class Muestra {
 
 	public void agregarOpinion(Opinion unaOpinion) {
 		this.estado.agregarOpinion(this, unaOpinion);
+	}
+	
+	public String resultadoActual() {
+		return this.estado.resultadoActual(this);
 	}
 	
 	public void setEstado(IEstadoDeMuestra estado) {

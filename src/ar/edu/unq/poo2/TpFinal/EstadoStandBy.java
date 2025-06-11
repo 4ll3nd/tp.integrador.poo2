@@ -32,4 +32,18 @@ public class EstadoStandBy implements IEstadoDeMuestra{
 		return muestra.getOpiniones().stream().
 				anyMatch(o -> o.getOpinion().equalsIgnoreCase(unaOpinion.getOpinion()));
 	}
+	/*PROPOSITO: obtener el resultado actual de la muestra dada
+	 * OBSERVACION: en este caso este estado solo le interesan las opiniones de un experto
+	 * entonces solamente las filtro de las de los basico, ademas, en este estado
+	 * se que solo hay una opinion de un experto. Si hubiera mas seria otro estado.
+	 * */
+	@Override
+	public String resultadoActual(Muestra muestra) {
+		return muestra.getOpiniones().stream()
+							         .filter(o -> o.getVoto() == Voto.VotoExperto)
+							         .toList()
+							         .getFirst()
+							         .getOpinion();
+		
+	}
 }

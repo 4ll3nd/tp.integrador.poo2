@@ -62,4 +62,34 @@ class EstadoStandByTest {
 		
 		verify(muestra, never()).doAgregarOpinion(opinion);
 	}
+	
+	@Test
+	void testSeCalculaElResultadoActualEnElEstadoStandByConUnaOpinionExperta() {
+		when(muestra.getOpiniones()).thenReturn(Arrays.asList(opinion, opinionVinchuca, opinionPocoClara));
+		when(opinion.getOpinion()).thenReturn("Poco Clara");
+		when(opinion.getVoto()).thenReturn(Voto.VotoBasico);
+		
+		when(opinionVinchuca.getOpinion()).thenReturn("Vinchuca");
+		when(opinionVinchuca.getVoto()).thenReturn(Voto.VotoExperto);
+		
+		when(opinionPocoClara.getOpinion()).thenReturn("Poco Clara");
+		when(opinionPocoClara.getVoto()).thenReturn(Voto.VotoBasico);
+		
+		assertEquals("Vinchuca", standBy.resultadoActual(muestra));
+	}
+	
+	@Test
+	void testSeCalculaElREsultadoActualEnEstadoStandByConDosOpinionesExpertasDistintas() {
+		when(muestra.getOpiniones()).thenReturn(Arrays.asList(opinion, opinionVinchuca, opinionPocoClara));
+		when(opinion.getOpinion()).thenReturn("Poco Clara");
+		when(opinion.getVoto()).thenReturn(Voto.VotoBasico);
+		
+		when(opinionVinchuca.getOpinion()).thenReturn("Poco Clara");
+		when(opinionVinchuca.getVoto()).thenReturn(Voto.VotoExperto);
+		
+		when(opinionPocoClara.getOpinion()).thenReturn("Vinchuca");
+		when(opinionPocoClara.getVoto()).thenReturn(Voto.VotoExperto);
+		
+		assertEquals("Poco Clara", standBy.resultadoActual(muestra));
+	}
 }
