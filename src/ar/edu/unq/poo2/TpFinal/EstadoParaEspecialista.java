@@ -4,11 +4,6 @@ import java.time.LocalDate;
 
 public class EstadoParaEspecialista extends EstadoDeCategoria {
 
-	@Override
-	public void subirCategoria(Participante unParticipante) {
-		// TODO Auto-generated method stub
-
-	}
 
 	@Override
 	public void opinar(ITipoDeOpinion tipoDeOpinion, Muestra unaMuestra, Participante unParticipante) {

@@ -5,12 +5,6 @@ import java.time.LocalDate;
 public class EstadoParaExperto extends EstadoDeCategoria {
 
 	@Override
-	public void subirCategoria(Participante unParticipante) {
-		
-		unParticipante.setEstado(new EstadoParaEspecialista());
-	}
-
-	@Override
 	public void opinar(ITipoDeOpinion tipoDeOpinion, Muestra unaMuestra, Participante unParticipante) {
 		
 		IOpinion unaOpinion = new Opinion(LocalDate.now(), unParticipante.getId(), Voto.VotoDeExperto, tipoDeOpinion);

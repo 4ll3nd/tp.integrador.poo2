@@ -3,7 +3,14 @@ package ar.edu.unq.poo2.TpFinal;
 
 public abstract class EstadoDeCategoria {
 	
-	public void cambiarCategoria(Participante participante) {
+	void agregar(IOpinion unaOpinion, Muestra unaMuestra, Participante unParticipante) {
+		
+		unParticipante.agregarOpinion(unaOpinion);
+		unaMuestra.agregarOpinion(unaOpinion);
+		
+	}
+	
+	void cambiarCategoria(Participante participante) {
 		
 		if(participante.esPromocionable()) {
 			
@@ -15,17 +22,12 @@ public abstract class EstadoDeCategoria {
 		}
 	}
 	
-	protected void agregar(IOpinion unaOpinion, Muestra unaMuestra, Participante unParticipante) {
-		
-		unParticipante.agregarOpinion(unaOpinion);
-		unaMuestra.agregarOpinion(unaOpinion);
-		
-	}
-	
 	protected void bajarCategoria(Participante participante) {
 		
 	};
 
-	public abstract void subirCategoria(Participante unParticipante);
+	protected void subirCategoria(Participante participante) {
+		
+	};
 	public abstract void opinar(ITipoDeOpinion tipoDeOpinion, Muestra unaMuestra, Participante unParticipante);
 }

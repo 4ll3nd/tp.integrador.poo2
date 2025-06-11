@@ -20,14 +20,6 @@ class EstadoParaExpertoTest {
 		participante = mock(Participante.class);
 		estado = new EstadoParaExperto();
 	}
-	
-	@Test
-	void test_unEstadoParaExpertoSubeDeCategoria() {
-
-		estado.subirCategoria(participante);
-		
-		verify(participante).setEstado(any());
-	}
 
 	@Test
 	void test_unEstadoParaExpertoAgregaUnaOpinionAlParticipante() {
