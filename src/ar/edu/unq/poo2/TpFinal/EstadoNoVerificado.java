@@ -27,6 +27,7 @@ public class EstadoNoVerificado implements IEstadoDeMuestra {
 		for(Opinion o: muestra.getOpiniones()) {
 			opinionStr.add(o.getOpinion());
 		}
+		opinionStr.add(muestra.getEspecie().getNombre());
 		
 		//inicializo un map para guardar asociaciones Key<String> value<Integer>
 		//donde la key es el string y su value es la ocurrencia de ese string en la lista

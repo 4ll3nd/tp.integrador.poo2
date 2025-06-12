@@ -1,6 +1,7 @@
 package ar.edu.unq.poo2.TpFinal;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -20,6 +21,8 @@ class MuestraTest {
 	Opinion otraOpinion;
 	Opinion opinionTres;
 	ZonaDeCobertura zona;
+	Participante participante; 
+	ITipoDeOpinion tipoDeOpinion;
 	@BeforeEach
 	void setUp() throws Exception {
 		infentans = mock(EspecieVinchuca.class);
@@ -29,21 +32,21 @@ class MuestraTest {
 		opinion = mock(Opinion.class);
 		otraOpinion = mock(Opinion.class);
 		opinionTres = mock(Opinion.class);
-		muestra = new Muestra(infentans, ubicacion, fechaDeSubida, foto, opinion);
+		participante = mock(Participante.class);
+		tipoDeOpinion = mock(ITipoDeOpinion.class);
+		when(participante.getId()).thenReturn(123);
+		muestra = new Muestra(infentans, ubicacion, fechaDeSubida, foto, participante);
 		zona = mock(ZonaDeCobertura.class);
 	}
 
 	@Test
 	void testInicializacion() {
-		when(opinion.getId()).thenReturn(123);
 		assertEquals(infentans, muestra.getEspecie());
 		assertEquals(ubicacion, muestra.getUbicacion());
 		assertEquals(fechaDeSubida, muestra.getFechaDeSubida());
-		assertEquals(1, muestra.getOpiniones().size());
 		assertEquals(foto, muestra.getFoto());
-		assertEquals(123, muestra.getId());
+		assertEquals(123, muestra.getId());	
 	}
-	
 	
 	@Test
 	void testSeAgregaUnaNuevaZonaDeCoberturaALaMuestra() {
@@ -52,21 +55,15 @@ class MuestraTest {
 		assertEquals(1, muestra.getZonasDeCobertura().size());
 	}
 	
-	/*
-	 * @Test
+	@Test
 	void testSeAgregaUnaNuevaOpinionALaMuestraEnEstadoNoVerificada() {
 		when(opinion.getVoto()).thenReturn(Voto.VotoExperto);
 		when(opinion.getOpinion()).thenReturn("Infectans");
 		
-		when(otraOpinion.getVoto()).thenReturn(Voto.VotoBasico);
-		when(otraOpinion.getOpinion()).thenReturn("Poco Clara");
-		
-		muestra.agregarOpinion(otraOpinion);
+		muestra.agregarOpinion(opinion);
 		
 		assertEquals(1, muestra.getOpiniones().size());
 	}
-	 * */
-	
 	
 	@Test
 	void testSeCalculaElResultadoDeUnaMuestraConVariasOpinionesDeUsuariosBasicos() {
@@ -82,11 +79,10 @@ class MuestraTest {
 	}
 	
 	@Test
-	void testSeCalculaElResultadoActualDeUnaMuestraConUnaOpinionExperta() {
-		when(opinion.getVoto()).thenReturn(Voto.VotoExperto);
-		when(opinion.getOpinion()).thenReturn("Poco Clara");
+	void testSeCalculaElResultadoActualDeUnaMuestraConUnaOpinion() {
+		when(infentans.getNombre()).thenReturn("Infestans");
 		
-		assertEquals("Poco Clara", muestra.resultadoActual());
+		assertEquals("Infestans", muestra.resultadoActual());
 	}
 	
 	@Test
@@ -100,6 +96,7 @@ class MuestraTest {
 		when(opinionTres.getOpinion()).thenReturn("Infestans");
 		when(opinionTres.getVoto()).thenReturn(Voto.VotoExperto);
 		
+		muestra.agregarOpinion(opinion);
 		muestra.agregarOpinion(otraOpinion);
 		muestra.agregarOpinion(opinionTres);
 		
@@ -107,6 +104,9 @@ class MuestraTest {
 	}
 	
 	@Test void testSeCalculaElResultadoActualDeUnaMuestraConOpinionesMixtas() {
+		when(infentans.getNombre()).thenReturn("Infestans");
+		when(tipoDeOpinion.getOpinion()).thenReturn("Infestans");
+		
 		when(opinion.getVoto()).thenReturn(Voto.VotoExperto);
 		when(opinion.getOpinion()).thenReturn("Infestans");
 		
@@ -116,14 +116,14 @@ class MuestraTest {
 		when(opinionTres.getOpinion()).thenReturn("Chinche Foliada");
 		when(opinionTres.getVoto()).thenReturn(Voto.VotoBasico);
 		
+		muestra.agregarOpinion(opinion);
 		muestra.agregarOpinion(otraOpinion);
 		muestra.agregarOpinion(opinionTres);
 		
 		assertEquals("Infestans", muestra.resultadoActual());
 	}
 	
-	/*
-	 * @Test
+	@Test
 	void testSeAgregaUnaOpinionDeUnExpertoYNoSeAgregaOtraOpinionDeUnBasico() {
 		when(opinion.getVoto()).thenReturn(Voto.VotoExperto);
 		when(opinion.getOpinion()).thenReturn("Poco Clara");
@@ -131,11 +131,9 @@ class MuestraTest {
 		when(otraOpinion.getVoto()).thenReturn(Voto.VotoBasico);
 		when(otraOpinion.getOpinion()).thenReturn("Infectans");
 		
+		muestra.agregarOpinion(opinion);
 		muestra.agregarOpinion(otraOpinion);
 		
 		assertEquals(1, muestra.getOpiniones().size());
 	}
-	
-	 * */
-	
 }

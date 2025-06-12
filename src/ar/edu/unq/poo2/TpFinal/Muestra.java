@@ -13,19 +13,15 @@ public class Muestra {
 	private List<Opinion> opiniones = new ArrayList<Opinion>();
 	private IEstadoDeMuestra estado;
 	private List<ZonaDeCobertura> zonasDeCobertura = new ArrayList<ZonaDeCobertura>();
-	public Muestra(EspecieVinchuca especie, Ubicacion ubicacion, LocalDate fechaDeSubida, IFoto foto,
-			Opinion opinion) {
+	private Integer creador;
+	public Muestra(EspecieVinchuca especie, Ubicacion ubicacion, LocalDate fechaDeSubida, IFoto foto, 
+			Participante creador) {
 		this.especie = especie;
-		if(opinion.getVoto() == Voto.VotoExperto) {
-			this.estado = new EstadoStandBy();
-		} else {
-			this.estado = new EstadoNoVerificado();
-		}
-		this.opiniones.add(opinion);
+		this.estado = new EstadoNoVerificado();
 		this.ubicacion = ubicacion;
 		this.fechaDeSubida = fechaDeSubida;
 		this.foto = foto;
-		
+		this.creador = creador.getId();
 	}
 
 	public EspecieVinchuca getEspecie() {
@@ -49,7 +45,7 @@ public class Muestra {
 	}
 	
 	public Integer getId() {
-		return this.opiniones.getFirst().getId();
+		return this.creador;
 	}
 
 	public List<ZonaDeCobertura> getZonasDeCobertura() {
@@ -65,7 +61,7 @@ public class Muestra {
 	}
 	
 	public String resultadoActual() {
-		return this.estado.resultadoActual(this);
+		return this.opiniones.size() == 0 ? this.especie.getNombre() : this.estado.resultadoActual(this); 
 	}
 	
 	public void setEstado(IEstadoDeMuestra estado) {
@@ -79,5 +75,4 @@ public class Muestra {
 	public void notificarVerificacion() {
 		//en un futuro se le dara un metodo
 	}
-	
 }
