@@ -15,6 +15,7 @@ public class ZonaDeCobertura implements IObserver {
 		this.epicentro = epicentro;
 		this.radio = radio;
 		this.muestras = new ArrayList<Muestra>();
+		
 	}
 
 	public String getNombre() {
@@ -34,8 +35,11 @@ public class ZonaDeCobertura implements IObserver {
 	}
 
 	public void agregarMuestra(Muestra muestra) {
+		
 		if (this.estaEnZona(muestra)) {
+			
 			muestras.add(muestra);
+			muestra.agregarZona(this);
 		}
 		
 	}
@@ -46,6 +50,7 @@ public class ZonaDeCobertura implements IObserver {
 	}
 
 	public List<ZonaDeCobertura> zonasSolapadas(List<ZonaDeCobertura> listaDeZonas) {
+		
 		return listaDeZonas.stream().filter(z -> this.estaSolapada(z)).toList();
 	}
 
