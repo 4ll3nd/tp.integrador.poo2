@@ -68,6 +68,11 @@ public class Muestra {
 		this.estado = estado;
 	}
 	
+	public boolean tieneOpinionDe(Participante participante) {
+		return this.opiniones.stream().
+				              anyMatch(o -> o.getId() == participante.getId());	
+	}
+	
 	protected void doAgregarOpinion(Opinion unaOpinion) {
 		this.opiniones.add(unaOpinion);
 	}

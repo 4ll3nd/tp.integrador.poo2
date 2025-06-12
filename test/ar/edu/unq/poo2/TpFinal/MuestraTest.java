@@ -136,4 +136,30 @@ class MuestraTest {
 		
 		assertEquals(1, muestra.getOpiniones().size());
 	}
+	
+	@Test
+	void testSeTesteaQueUnaOpinionPertezcaAUnUsuario() {
+		when(otraOpinion.getId()).thenReturn(1);
+		when(opinion.getId()).thenReturn(2);
+		when(opinionTres.getId()).thenReturn(3);
+		when(participante.getId()).thenReturn(3);
+		muestra.agregarOpinion(otraOpinion);
+		muestra.agregarOpinion(opinion);
+		muestra.agregarOpinion(opinionTres);
+		
+		assertTrue(muestra.tieneOpinionDe(participante));
+	}
+	
+	@Test
+	void testSeTesteaQueUnaOpinionNoPertezcaAUnUsuario() {
+		when(otraOpinion.getId()).thenReturn(1);
+		when(opinion.getId()).thenReturn(2);
+		when(opinionTres.getId()).thenReturn(3);
+		when(participante.getId()).thenReturn(50);
+		muestra.agregarOpinion(otraOpinion);
+		muestra.agregarOpinion(opinion);
+		muestra.agregarOpinion(opinionTres);
+		
+		assertFalse(muestra.tieneOpinionDe(participante));
+	}
 }
