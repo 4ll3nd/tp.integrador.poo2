@@ -16,6 +16,7 @@ class EstadoNoVerificadoTest {
 	Opinion opinion;
 	Opinion opinionDos;
 	Opinion opinionTres;
+	EspecieVinchuca infestans;
 	@BeforeEach
 	void setUp() throws Exception {
 		muestra = mock(Muestra.class);
@@ -23,6 +24,7 @@ class EstadoNoVerificadoTest {
 		opinion = mock(Opinion.class);
 		opinionDos = mock(Opinion.class);
 		opinionTres = mock(Opinion.class);
+		infestans = mock(Infestans.class);
 	}
 
 	@Test
@@ -44,20 +46,23 @@ class EstadoNoVerificadoTest {
 	
 	@Test
 	void testSeCalculaElResultadoActualEnElEstadoNoVerificado() {
-		when(muestra.getOpiniones()).thenReturn(Arrays.asList(opinion, opinionDos, opinionTres));
+		when(muestra.getEspecie()).thenReturn(infestans);
+		when(infestans.getNombre()).thenReturn("Infestans");
+		when(muestra.getOpiniones()).thenReturn(Arrays.asList(opinion, opinionTres));
 		when(opinion.getOpinion()).thenReturn("Poco Clara");
-		when(opinionDos.getOpinion()).thenReturn("Poco Clara");
 		when(opinionTres.getOpinion()).thenReturn("Infestans");
 		
-		assertEquals("Poco Clara", noVerificado.resultadoActual(muestra));
+		assertEquals("Infestans", noVerificado.resultadoActual(muestra));
 	}
 	
 	@Test
 	void testSeCalculaElResultadoActualYEsUnoNoEsperado() {
-		when(muestra.getOpiniones()).thenReturn(Arrays.asList(opinion, opinionDos, opinionTres));
+		when(muestra.getEspecie()).thenReturn(infestans);
+		when(infestans.getNombre()).thenReturn("Infestans");
+		
+		when(muestra.getOpiniones()).thenReturn(Arrays.asList(opinion, opinionTres));
 		when(opinion.getOpinion()).thenReturn("Poco Clara");
-		when(opinionDos.getOpinion()).thenReturn("Poco Clara");
-		when(opinionTres.getOpinion()).thenReturn("Infestans");
+		when(opinionTres.getOpinion()).thenReturn("Poco Clara");
 		
 		assertNotEquals("Infestans", noVerificado.resultadoActual(muestra));
 	}
