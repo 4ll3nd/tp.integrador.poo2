@@ -71,6 +71,7 @@ class ParticipanteTest {
 	void test_unParticipanteInicialmenteNoCumpleLaReglaDePromocion()  {
 		
 		assertFalse(participante.esPromocionable());
+		
 	}
 	
 	@Test

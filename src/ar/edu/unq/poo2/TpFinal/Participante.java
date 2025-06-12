@@ -25,6 +25,11 @@ public class Participante {
 		this.conocimiento.validarA(this);
 	}
 	
+	public void ascenderAEspecialista() {
+		
+		setEstado(new EstadoParaEspecialista());
+	}
+	
 	private void initialize(Integer id) {
 		
 		initializeMuestras();
@@ -45,7 +50,6 @@ public class Participante {
 	public void agregarMuestra(Muestra muestra) {
 		
 		getMuestras().add(muestra);
-		
 	}
 	
 	private List<Muestra> getMuestras() {
