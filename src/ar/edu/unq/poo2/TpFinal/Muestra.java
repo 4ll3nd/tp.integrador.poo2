@@ -10,7 +10,7 @@ public class Muestra {
 	private Ubicacion ubicacion;
 	private LocalDate fechaDeSubida;
 	private IFoto foto;
-	private List<Opinion> opiniones = new ArrayList<Opinion>();
+	private List<IOpinion> opiniones = new ArrayList<IOpinion>();
 	private IEstadoDeMuestra estado;
 	private List<ZonaDeCobertura> zonasDeCobertura = new ArrayList<ZonaDeCobertura>();
 	private Integer creador;
@@ -40,8 +40,8 @@ public class Muestra {
 		return foto;
 	}
 
-	public List<Opinion> getOpiniones() {
-		return opiniones;
+	public List<IOpinion> getOpiniones() {
+		return this.opiniones;
 	}
 	
 	public Integer getId() {
@@ -56,7 +56,7 @@ public class Muestra {
 		this.zonasDeCobertura.add(zona);
 	}
 
-	public void agregarOpinion(Opinion unaOpinion) {
+	public void agregarOpinion(IOpinion unaOpinion) {
 		this.estado.agregarOpinion(this, unaOpinion);
 	}
 	
@@ -73,7 +73,7 @@ public class Muestra {
 				              anyMatch(o -> o.getId() == participante.getId());	
 	}
 	
-	protected void doAgregarOpinion(Opinion unaOpinion) {
+	protected void doAgregarOpinion(IOpinion unaOpinion) {
 		this.opiniones.add(unaOpinion);
 	}
 	

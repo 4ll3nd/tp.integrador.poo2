@@ -1,13 +1,13 @@
 package ar.edu.unq.poo2.TpFinal;
 
 public class EstadoStandBy implements IEstadoDeMuestra{
-	public void agregarOpinion(Muestra muestra, Opinion unaOpinion) {
-	  if(this.existeMismaOpinion(muestra, unaOpinion) && unaOpinion.getVoto() == Voto.VotoExperto) {
+	public void agregarOpinion(Muestra muestra, IOpinion unaOpinion) {
+	  if(this.existeMismaOpinion(muestra, unaOpinion) && unaOpinion.getVoto() == Voto.VotoDeExperto) {
 			muestra.setEstado(new EstadoVerificado());
 			muestra.doAgregarOpinion(unaOpinion);
 		}
 		else {
-			if(unaOpinion.getVoto() == Voto.VotoExperto) {
+			if(unaOpinion.getVoto() == Voto.VotoDeExperto) {
 				muestra.doAgregarOpinion(unaOpinion);
 			}
 		}
@@ -28,7 +28,7 @@ public class EstadoStandBy implements IEstadoDeMuestra{
 		}
 	}
 	 * **/
-	private boolean existeMismaOpinion(Muestra muestra, Opinion unaOpinion) {
+	private boolean existeMismaOpinion(Muestra muestra, IOpinion unaOpinion) {
 		return muestra.getOpiniones().stream().
 				anyMatch(o -> o.getOpinion().equalsIgnoreCase(unaOpinion.getOpinion()));
 	}
@@ -40,7 +40,7 @@ public class EstadoStandBy implements IEstadoDeMuestra{
 	@Override
 	public String resultadoActual(Muestra muestra) {
 		return muestra.getOpiniones().stream()
-							         .filter(o -> o.getVoto() == Voto.VotoExperto)
+							         .filter(o -> o.getVoto() == Voto.VotoDeExperto)
 							         .toList()
 							         .getFirst()
 							         .getOpinion();

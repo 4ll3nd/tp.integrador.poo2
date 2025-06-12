@@ -10,8 +10,8 @@ import java.util.stream.Collector;
 public class EstadoNoVerificado implements IEstadoDeMuestra {
 
 	@Override
-	public void agregarOpinion(Muestra muestra, Opinion unaOpinion) {
-		if(unaOpinion.getVoto() == Voto.VotoExperto) {
+	public void agregarOpinion(Muestra muestra, IOpinion unaOpinion) {
+		if(unaOpinion.getVoto() == Voto.VotoDeExperto) {
 			muestra.setEstado(new EstadoStandBy());
 			muestra.doAgregarOpinion(unaOpinion);
 		}
@@ -24,7 +24,7 @@ public class EstadoNoVerificado implements IEstadoDeMuestra {
 	public String resultadoActual(Muestra muestra) {
 		//en base a la lista de opiniones de la muestra obtengo una lista de String
 		List<String> opinionStr = new ArrayList<String>();
-		for(Opinion o: muestra.getOpiniones()) {
+		for(IOpinion o: muestra.getOpiniones()) {
 			opinionStr.add(o.getOpinion());
 		}
 		opinionStr.add(muestra.getEspecie().getNombre());

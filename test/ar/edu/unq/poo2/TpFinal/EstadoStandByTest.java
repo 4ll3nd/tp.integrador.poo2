@@ -30,7 +30,7 @@ class EstadoStandByTest {
 
 	@Test
 	void testEstadoStandByAgregaUnaOpinionDeUnExpertoQueNoEsIgualANingunaQueTeniaLaMuestrea() {
-		when(opinion.getVoto()).thenReturn(Voto.VotoExperto);
+		when(opinion.getVoto()).thenReturn(Voto.VotoDeExperto);
 		when(muestra.getOpiniones()).thenReturn(Arrays.asList(opinionVinchuca, opinionPocoClara));
 		when(opinionVinchuca.getOpinion()).thenReturn("Vinchuca");
 		when(opinionPocoClara.getOpinion()).thenReturn("Poco Clara");
@@ -47,7 +47,7 @@ class EstadoStandByTest {
 		when(opinionVinchuca.getOpinion()).thenReturn("Vinchuca");
 		when(opinionPocoClara.getOpinion()).thenReturn("Poco Clara");
 		when(opinion.getOpinion()).thenReturn("Poco Clara");
-		when(opinion.getVoto()).thenReturn(Voto.VotoExperto);
+		when(opinion.getVoto()).thenReturn(Voto.VotoDeExperto);
 		
 		standBy.agregarOpinion(muestra, opinion);
 		
@@ -56,7 +56,7 @@ class EstadoStandByTest {
 	
 	@Test
 	void testEstadoStandByNoAgregaUnaOpiniondeUnBasico() {
-		when(opinion.getVoto()).thenReturn(Voto.VotoBasico);
+		when(opinion.getVoto()).thenReturn(Voto.VotoDeBasico);
 		
 		standBy.agregarOpinion(muestra, opinion);
 		
@@ -67,13 +67,13 @@ class EstadoStandByTest {
 	void testSeCalculaElResultadoActualEnElEstadoStandByConUnaOpinionExperta() {
 		when(muestra.getOpiniones()).thenReturn(Arrays.asList(opinion, opinionVinchuca, opinionPocoClara));
 		when(opinion.getOpinion()).thenReturn("Poco Clara");
-		when(opinion.getVoto()).thenReturn(Voto.VotoBasico);
+		when(opinion.getVoto()).thenReturn(Voto.VotoDeBasico);
 		
 		when(opinionVinchuca.getOpinion()).thenReturn("Vinchuca");
-		when(opinionVinchuca.getVoto()).thenReturn(Voto.VotoExperto);
+		when(opinionVinchuca.getVoto()).thenReturn(Voto.VotoDeExperto);
 		
 		when(opinionPocoClara.getOpinion()).thenReturn("Poco Clara");
-		when(opinionPocoClara.getVoto()).thenReturn(Voto.VotoBasico);
+		when(opinionPocoClara.getVoto()).thenReturn(Voto.VotoDeBasico);
 		
 		assertEquals("Vinchuca", standBy.resultadoActual(muestra));
 	}
@@ -82,13 +82,13 @@ class EstadoStandByTest {
 	void testSeCalculaElREsultadoActualEnEstadoStandByConDosOpinionesExpertasDistintas() {
 		when(muestra.getOpiniones()).thenReturn(Arrays.asList(opinion, opinionVinchuca, opinionPocoClara));
 		when(opinion.getOpinion()).thenReturn("Poco Clara");
-		when(opinion.getVoto()).thenReturn(Voto.VotoBasico);
+		when(opinion.getVoto()).thenReturn(Voto.VotoDeBasico);
 		
 		when(opinionVinchuca.getOpinion()).thenReturn("Poco Clara");
-		when(opinionVinchuca.getVoto()).thenReturn(Voto.VotoExperto);
+		when(opinionVinchuca.getVoto()).thenReturn(Voto.VotoDeExperto);
 		
 		when(opinionPocoClara.getOpinion()).thenReturn("Vinchuca");
-		when(opinionPocoClara.getVoto()).thenReturn(Voto.VotoExperto);
+		when(opinionPocoClara.getVoto()).thenReturn(Voto.VotoDeExperto);
 		
 		assertEquals("Poco Clara", standBy.resultadoActual(muestra));
 	}

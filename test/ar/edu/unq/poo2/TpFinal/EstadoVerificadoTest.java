@@ -40,16 +40,16 @@ class EstadoVerificadoTest {
 		when(muestra.getOpiniones()).thenReturn(Arrays.asList(opinion, opinionDos, opinionTres, opinionCuatro));
 		
 		when(opinion.getOpinion()).thenReturn("Chinche Foliada");
-		when(opinion.getVoto()).thenReturn(Voto.VotoExperto);
+		when(opinion.getVoto()).thenReturn(Voto.VotoDeExperto);
 		
 		when(opinionTres.getOpinion()).thenReturn("Infestans");
-		when(opinionTres.getVoto()).thenReturn(Voto.VotoExperto);
+		when(opinionTres.getVoto()).thenReturn(Voto.VotoDeExperto);
 		
 		when(opinionDos.getOpinion()).thenReturn("Chinche Foliada");
-		when(opinionDos.getVoto()).thenReturn(Voto.VotoExperto);
+		when(opinionDos.getVoto()).thenReturn(Voto.VotoDeExperto);
 		
 		when(opinionCuatro.getOpinion()).thenReturn("Poco Clara");
-		when(opinionCuatro.getVoto()).thenReturn(Voto.VotoBasico);
+		when(opinionCuatro.getVoto()).thenReturn(Voto.VotoDeBasico);
 		
 		assertEquals("Chinche Foliada", verificado.resultadoActual(muestra));
 	}

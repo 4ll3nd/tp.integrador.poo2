@@ -77,7 +77,7 @@ class ParticipanteTest {
 	@Test
 	void test_unParticipanteNoPromocionableSoloCumpleConMasDe10Muestas() throws Exception  {
 		
-		when(muestra.getFecha()).thenReturn(LocalDate.of(1, 2, 3));
+		when(muestra.getFechaDeSubida()).thenReturn(LocalDate.of(1, 2, 3));
 		
 		agregarCantidadDeMuestras(participante, muestra, 11);
 
@@ -87,7 +87,7 @@ class ParticipanteTest {
 	@Test
 	void test_unParticipanteNoPromocionableSoloCumpleConMasDe20Opiniones() throws Exception  {
 		
-		when(muestra.getFecha()).thenReturn(LocalDate.of(2025, 6, 5));
+		when(muestra.getFechaDeSubida()).thenReturn(LocalDate.of(2025, 6, 5));
 		
 		agregarCantidadDeOpiniones(participante, tipoDeOpinion, 2);
 		
@@ -97,7 +97,7 @@ class ParticipanteTest {
 	@Test
 	void test_esPromocionableSiCumpleConMasDe20OpinionesyMasDe10Muestras() throws Exception  {
 		
-		when(muestra.getFecha()).thenReturn(LocalDate.of(2025, 6, 5));
+		when(muestra.getFechaDeSubida()).thenReturn(LocalDate.of(2025, 6, 5));
 		
 		agregarCantidadDeMuestras(participante, muestra, 11);
 		agregarCantidadDeOpiniones(participante, tipoDeOpinion, 21);
@@ -116,7 +116,7 @@ class ParticipanteTest {
 	@Test
 	void test_unParticipanteCambiaDeCategoriaSiEsPromocionable() throws Exception  {
 		
-		when(muestra.getFecha()).thenReturn(LocalDate.of(2025, 6, 5));
+		when(muestra.getFechaDeSubida()).thenReturn(LocalDate.of(2025, 6, 5));
 		
 		agregarCantidadDeMuestras(participante, muestra, 11);
 		agregarCantidadDeOpiniones(participante, tipoDeOpinion, 21);

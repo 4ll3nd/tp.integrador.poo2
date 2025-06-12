@@ -131,7 +131,7 @@ public class Participante {
 	
 	private Integer muestrasHace30Dias() {
 		
-		return getMuestras().stream().filter(muestra -> esAntesDe30Dias(muestra.getFecha())).toList().size();
+		return getMuestras().stream().filter(muestra -> esAntesDe30Dias(muestra.getFechaDeSubida())).toList().size();
 	}
 
 	public void cambiarCategoria() {

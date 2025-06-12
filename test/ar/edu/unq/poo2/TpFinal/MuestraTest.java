@@ -57,7 +57,7 @@ class MuestraTest {
 	
 	@Test
 	void testSeAgregaUnaNuevaOpinionALaMuestraEnEstadoNoVerificada() {
-		when(opinion.getVoto()).thenReturn(Voto.VotoExperto);
+		when(opinion.getVoto()).thenReturn(Voto.VotoDeExperto);
 		when(opinion.getOpinion()).thenReturn("Infectans");
 		
 		muestra.agregarOpinion(opinion);
@@ -87,14 +87,14 @@ class MuestraTest {
 	
 	@Test
 	void testSeCalculaElResultadoActualDeUnaMuestraConTresOpinionesExpertas() {
-		when(opinion.getVoto()).thenReturn(Voto.VotoExperto);
+		when(opinion.getVoto()).thenReturn(Voto.VotoDeExperto);
 		when(opinion.getOpinion()).thenReturn("Infestans");
 		
-		when(otraOpinion.getVoto()).thenReturn(Voto.VotoExperto);
+		when(otraOpinion.getVoto()).thenReturn(Voto.VotoDeExperto);
 		when(otraOpinion.getOpinion()).thenReturn("Poco Clara");
 		
 		when(opinionTres.getOpinion()).thenReturn("Infestans");
-		when(opinionTres.getVoto()).thenReturn(Voto.VotoExperto);
+		when(opinionTres.getVoto()).thenReturn(Voto.VotoDeExperto);
 		
 		muestra.agregarOpinion(opinion);
 		muestra.agregarOpinion(otraOpinion);
@@ -107,14 +107,14 @@ class MuestraTest {
 		when(infentans.getNombre()).thenReturn("Infestans");
 		when(tipoDeOpinion.getOpinion()).thenReturn("Infestans");
 		
-		when(opinion.getVoto()).thenReturn(Voto.VotoExperto);
+		when(opinion.getVoto()).thenReturn(Voto.VotoDeExperto);
 		when(opinion.getOpinion()).thenReturn("Infestans");
 		
-		when(otraOpinion.getVoto()).thenReturn(Voto.VotoExperto);
+		when(otraOpinion.getVoto()).thenReturn(Voto.VotoDeExperto);
 		when(otraOpinion.getOpinion()).thenReturn("Poco Clara");
 		
 		when(opinionTres.getOpinion()).thenReturn("Chinche Foliada");
-		when(opinionTres.getVoto()).thenReturn(Voto.VotoBasico);
+		when(opinionTres.getVoto()).thenReturn(Voto.VotoDeBasico);
 		
 		muestra.agregarOpinion(opinion);
 		muestra.agregarOpinion(otraOpinion);
@@ -125,10 +125,10 @@ class MuestraTest {
 	
 	@Test
 	void testSeAgregaUnaOpinionDeUnExpertoYNoSeAgregaOtraOpinionDeUnBasico() {
-		when(opinion.getVoto()).thenReturn(Voto.VotoExperto);
+		when(opinion.getVoto()).thenReturn(Voto.VotoDeExperto);
 		when(opinion.getOpinion()).thenReturn("Poco Clara");
 		
-		when(otraOpinion.getVoto()).thenReturn(Voto.VotoBasico);
+		when(otraOpinion.getVoto()).thenReturn(Voto.VotoDeBasico);
 		when(otraOpinion.getOpinion()).thenReturn("Infectans");
 		
 		muestra.agregarOpinion(opinion);

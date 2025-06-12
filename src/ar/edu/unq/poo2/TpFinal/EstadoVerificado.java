@@ -8,18 +8,18 @@ import java.util.Map;
 public class EstadoVerificado implements IEstadoDeMuestra {
 
 	@Override
-	public void agregarOpinion(Muestra muestra, Opinion unaOpinion) {
+	public void agregarOpinion(Muestra muestra, IOpinion unaOpinion) {
 
 	}
 
 	@Override
 	//codigo repetido con EstadoNoVerificado...Posible templateMethod
 	public String resultadoActual(Muestra muestra) {
-		List<Opinion> opinionesExpertos = muestra.getOpiniones().stream()
-		                                                        .filter(o->o.getVoto() == Voto.VotoExperto)
+		List<IOpinion> opinionesExpertos = muestra.getOpiniones().stream()
+		                                                        .filter(o->o.getVoto() == Voto.VotoDeExperto)
 		                                                        .toList();
 		List<String> opinionStrExperto = new ArrayList<String>();
-		for(Opinion o: opinionesExpertos) {
+		for(IOpinion o: opinionesExpertos) {
 			opinionStrExperto.add(o.getOpinion());
 		}
 		

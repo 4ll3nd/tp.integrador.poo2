@@ -29,7 +29,7 @@ class EstadoNoVerificadoTest {
 
 	@Test
 	void testSeAgregaUnaOpinionDeUnParticipanteBasico() {
-		when(opinion.getVoto()).thenReturn(Voto.VotoExperto);
+		when(opinion.getVoto()).thenReturn(Voto.VotoDeExperto);
 		noVerificado.agregarOpinion(muestra, opinion);
 		
 		verify(muestra).doAgregarOpinion(opinion);
@@ -38,7 +38,7 @@ class EstadoNoVerificadoTest {
 	//duda: se verifica realmente el cambio de estado.
 	@Test
 	void testSeAgregaUnaOpinionDeUnExpertoYLaMuestraCambiaDeEstadoAStandBy() {
-		when(opinion.getVoto()).thenReturn(Voto.VotoExperto);
+		when(opinion.getVoto()).thenReturn(Voto.VotoDeExperto);
 		noVerificado.agregarOpinion(muestra, opinion);
 		
 		verify(muestra).doAgregarOpinion(opinion);;
