@@ -5,15 +5,15 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class ClaseMuestraTest {
-
+class GuasayanaTest {
+	Guasayana guasayana;
 	@BeforeEach
 	void setUp() throws Exception {
+		guasayana = new Guasayana("guasayana");
 	}
 
 	@Test
-	void test() {
-		fail("Not yet implemented");
+	void testObtenerNombreDeEspecie() {
+		assertEquals("guasayana", guasayana.getNombre());
 	}
-
 }
