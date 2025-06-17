@@ -80,4 +80,8 @@ public class Muestra {
 	public void notificarVerificacion() {
 		//en un futuro se le dara un metodo
 	}
+
+	public boolean estaEn(String estadoPosible) {
+		return this.estado.estaEn(estadoPosible);
+	}
 }

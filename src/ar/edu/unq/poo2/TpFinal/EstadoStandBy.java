@@ -46,4 +46,9 @@ public class EstadoStandBy implements IEstadoDeMuestra{
 							         .getOpinion();
 		
 	}
+
+	@Override
+	public boolean estaEn(String estadoPosible) {
+		return estadoPosible.equalsIgnoreCase("StandBy");
+	}
 }
