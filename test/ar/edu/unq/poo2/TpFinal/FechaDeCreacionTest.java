@@ -30,7 +30,7 @@ class FechaDeCreacionTest {
 	}
 	
 	@Test
-	void test_SiNingunaMuestraCumpleConLaFechaDeCreacion_NoSeFiltraNingunaMuestra() {
+	void test_SiTodasLasMuestraCumplenConLaFechaDeCreacion_NoSeFiltraNingunaMuestra() {
 		
 		LocalDate fecha = LocalDate.of(2024, 5, 2);
 		
@@ -39,6 +39,18 @@ class FechaDeCreacionTest {
 		when(unaFecha.isEqual(fecha)).thenReturn(true);
 		
 		assertEquals(unFiltroDeFechaDeCreacion.filtrar(muestras).size(), muestras.size());
+	}
+	
+	@Test
+	void test_SiNingunaMuestraCumplenConLaFechaDeCreacion_SeFiltranTodas() {
+		
+		LocalDate fecha = LocalDate.of(2024, 5, 2);
+		
+		List<Muestra> muestras = agregar(5, fecha);
+		
+		when(unaFecha.isEqual(fecha)).thenReturn(false);
+		
+		assertTrue(unFiltroDeFechaDeCreacion.filtrar(muestras).isEmpty());
 	}
 	
 	@Test
