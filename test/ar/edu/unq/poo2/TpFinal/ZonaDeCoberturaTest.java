@@ -15,6 +15,7 @@ class ZonaDeCoberturaTest {
 	private Muestra muestraMock;
 	private ZonaDeCobertura zoneMock1;
 	private ZonaDeCobertura zoneMock2;
+	private IObserverOrganizacion organizacion;
 
 	@BeforeEach
 	void setUp() throws Exception {
@@ -28,6 +29,10 @@ class ZonaDeCoberturaTest {
 		// Mock de ubicaciones
 		ubiMock2 = mock(Ubicacion.class);
 		ubiMock = mock(Ubicacion.class);
+		
+		// Mock de Observer
+		organizacion = mock(IObserverOrganizacion.class);
+		
 
 		// SUT Constructor
 		zone0 = new ZonaDeCobertura("Quilmes", ubiMock, 700d);

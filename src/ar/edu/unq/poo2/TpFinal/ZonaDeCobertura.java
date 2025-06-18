@@ -3,7 +3,7 @@ package ar.edu.unq.poo2.TpFinal;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ZonaDeCobertura implements IObserver, IObserverMuestraVerificada{
+public class ZonaDeCobertura implements IObserverNuevaMuestra, IObserverMuestraVerificada {
 
 	private String nombre;
 	private Ubicacion epicentro;
@@ -16,6 +16,7 @@ public class ZonaDeCobertura implements IObserver, IObserverMuestraVerificada{
 		this.epicentro = epicentro;
 		this.radio = radio;
 		this.muestras = new ArrayList<Muestra>();
+		this.eventManagerZona = new EventManagerZona();
 	}
 
 	public String getNombre() {
@@ -31,17 +32,36 @@ public class ZonaDeCobertura implements IObserver, IObserverMuestraVerificada{
 	}
 
 	public List<Muestra> getMuestras() {
+		
 		return muestras;
 	}
 
+	@Override
 	public void updateMuestra(Muestra muestra) {
 		
 		if (this.estaEnZona(muestra)) {
 			
 			muestras.add(muestra);
 			muestra.agregarZona(this);
+			notificarAgregadoDe(muestra);
 		}
 		
+	}
+
+	private void notificarAgregadoDe(Muestra muestra) {
+		
+		this.eventManagerZona.notificar("Agregado", muestra, this);
+	}
+	
+	@Override
+	public void updateMuestraVerificada(Muestra muestra) {
+		
+		notificarVerificacion(muestra);
+	}
+
+	private void notificarVerificacion(Muestra muestra) {
+		
+		this.eventManagerZona.notificar("Verificación", muestra, this);
 	}
 
 	private boolean estaEnZona(Muestra muestra) {
@@ -59,8 +79,13 @@ public class ZonaDeCobertura implements IObserver, IObserverMuestraVerificada{
 		return z.getEpicentro().distancia(this.epicentro) <= this.radio + z.getRadio();
 	}
 
-	@Override
-	public void updateMuestraVerificada(Muestra muestra) {
-		this.eventManagerZona.notificar("Verificación", muestra, this);
+	public void suscribir(String event, IObserverOrganizacion organizacion) {
+		
+		this.eventManagerZona.suscribir(event, organizacion);
+	}
+	
+	public void desuscribir(String event, IObserverOrganizacion organizacion) {
+		
+		this.eventManagerZona.desuscribir(event, organizacion);
 	}
 }

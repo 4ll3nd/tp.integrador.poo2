@@ -5,13 +5,13 @@ import java.util.List;
 
 public class EventManajer {
 
-	private List<IObserver> observadores;
+	private List<IObserverNuevaMuestra> observadores;
 
 	public EventManajer() {
-		observadores = new ArrayList<IObserver>();
+		observadores = new ArrayList<IObserverNuevaMuestra>();
 	}
 
-	public void suscribir(IObserver observador) {
+	public void suscribir(IObserverNuevaMuestra observador) {
 		observadores.add(observador);
 
 	}
@@ -21,7 +21,7 @@ public class EventManajer {
 
 	}
 
-	public void deSuscribir(IObserver observador) {
+	public void deSuscribir(IObserverNuevaMuestra observador) {
 		observadores.remove(observador);
 
 	}
