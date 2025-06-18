@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 
 class EventManajerTest {
 	private EventManajer event1;
-	private IObserver obsMock;
+	private IObserverNuevaMuestra obsMock;
 	private Muestra muesMock;
 
 	@BeforeEach
@@ -16,7 +16,7 @@ class EventManajerTest {
 
 		event1 = new EventManajer();
 
-		obsMock = mock(IObserver.class);
+		obsMock = mock(IObserverNuevaMuestra.class);
 
 		// Suscribimos al obs
 		event1.suscribir(obsMock);

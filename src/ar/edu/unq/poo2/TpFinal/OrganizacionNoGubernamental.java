@@ -14,6 +14,7 @@ public class OrganizacionNoGubernamental implements IObserverOrganizacion {
 		this.tipoDeOrganizacion = tipOrga;
 		this.funcionalidadDeAgregado = funcionalidadDeAgregado;
 		this.funcionalidadDeVerificacion = funcionalidadDeVerificacion;
+		
 	}
 
 	public int getCantidadDeEmpleados() {
@@ -30,20 +31,10 @@ public class OrganizacionNoGubernamental implements IObserverOrganizacion {
 
 	public void setFuncionalidadExternaNuevaMuestra(FuncionalidadExterna funcionalidad) {
 		
-		setFuncionalidadNuevaMuestra(funcionalidad);
-	}
-
-	private void setFuncionalidadNuevaMuestra(FuncionalidadExterna funcionalidad) {
-		
 		this.funcionalidadDeAgregado = funcionalidad;
 	}
 
 	public void setFuncionalidadExternaVerificacion(FuncionalidadExterna funcionalidad) {
-		
-		setFuncionalidadVerificacion(funcionalidad);
-	}
-
-	private void setFuncionalidadVerificacion(FuncionalidadExterna funcionalidad) {
 		
 		this.funcionalidadDeVerificacion = funcionalidad;
 	}

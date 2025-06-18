@@ -12,15 +12,12 @@ public class Sistema {
 		manejador= new EventManajer();
 	}
 
-	public void agregarMuestra(Muestra muestraMock1, Participante participanteMock1) {
-		muestras.add(muestraMock1);
+	public void agregarMuestra(Muestra muestra, Participante participante) {
+		muestras.add(muestra);
 		
-		manejador.notificar(muestraMock1);
+		manejador.notificar(muestra);
 		
-		participanteMock1.agregarMuestra(muestraMock1);
-		
-		
-
+		participante.agregarMuestra(muestra);
 	}
 
 }
