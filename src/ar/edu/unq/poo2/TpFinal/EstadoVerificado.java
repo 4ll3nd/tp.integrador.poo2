@@ -41,4 +41,9 @@ public class EstadoVerificado implements IEstadoDeMuestra {
 		}
 		return masFrecuente;
 	}
+
+	@Override
+	public boolean estaEn(String estadoPosible) {
+		return estadoPosible.equalsIgnoreCase("Verificado");
+	}
 }

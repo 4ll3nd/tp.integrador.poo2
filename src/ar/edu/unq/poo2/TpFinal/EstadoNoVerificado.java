@@ -53,4 +53,8 @@ public class EstadoNoVerificado implements IEstadoDeMuestra {
 		}
 		return masFrecuente;
 	}
+	@Override
+	public boolean estaEn(String estadoPosible) {
+		return estadoPosible.equalsIgnoreCase("No Verificado");
+	}
 }

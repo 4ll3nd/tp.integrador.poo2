@@ -52,7 +52,7 @@ class MuestraTest {
 	void testSeAgregaUnaNuevaZonaDeCoberturaALaMuestra() {
 		muestra.agregarZona(zona);
 		
-		assertEquals(1, muestra.getZonasDeCobertura().size());
+		assertEquals(1, muestra.getObserverVerificacion().size());
 	}
 	
 	@Test
@@ -161,5 +161,15 @@ class MuestraTest {
 		muestra.agregarOpinion(opinionTres);
 		
 		assertFalse(muestra.tieneOpinionDe(participante));
+	}
+	
+	@Test
+	void testUnaMuestraNoVerificadaRecibeUnPosibleEstadoActualYRespondeQueEsSuEstadoActual() {
+		assertTrue(muestra.estaEn("No Verificado"));
+	}
+	
+	@Test
+	void testUnaMuestraNoVerificadaRecibeUnPosibleEstadoActualYRespondeQueEseNoEsSuEstadoActual() {
+		assertFalse(muestra.estaEn("Verificado"));
 	}
 }
