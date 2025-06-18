@@ -34,7 +34,7 @@ public class ZonaDeCobertura implements IObserver, IObserverMuestraVerificada{
 		return muestras;
 	}
 
-	public void agregarMuestra(Muestra muestra) {
+	public void updateMuestra(Muestra muestra) {
 		
 		if (this.estaEnZona(muestra)) {
 			

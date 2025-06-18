@@ -17,7 +17,7 @@ public class EventManajer {
 	}
 
 	public void notificar(Muestra muestra) {
-		observadores.stream().forEach(obs -> obs.agregarMuestra(muestra));
+		observadores.stream().forEach(obs -> obs.updateMuestra(muestra));
 
 	}
 
