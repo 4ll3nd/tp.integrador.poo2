@@ -61,6 +61,6 @@ public class ZonaDeCobertura implements IObserver, IObserverMuestraVerificada{
 
 	@Override
 	public void updateMuestraVerificada(Muestra muestra) {
-		this.eventManagerZona.notificar("Verificacion", muestra);
+		this.eventManagerZona.notificar("Verificación", muestra, this);
 	}
 }
