@@ -7,35 +7,80 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class OrganizacionTest {
-	private OrganizacionNoGubernamental ioleta;
-	private Ubicacion ubiMock;
+	
+	private OrganizacionNoGubernamental organizacion;
+	private Ubicacion ubicacion;
+	private FuncionalidadExterna funcionalidadDeAgregado;
+	private FuncionalidadExterna funcionalidadDeVerificacion;
+	private Muestra muestra;
+	private ZonaDeCobertura zona;
 
 	@BeforeEach
 	void setUp() throws Exception {
 
-		ubiMock = mock(Ubicacion.class);
-
+		zona = mock(ZonaDeCobertura.class);
+		muestra = mock(Muestra.class);
+		funcionalidadDeAgregado = mock(FuncionalidadExterna.class);
+		funcionalidadDeVerificacion = mock(FuncionalidadExterna.class);
+		ubicacion = mock(Ubicacion.class);
 		TipoDeOrganizacion salud = TipoDeOrganizacion.Salud;
-
-		ioleta = new OrganizacionNoGubernamental(ubiMock, salud, 500);
+		organizacion = new OrganizacionNoGubernamental(ubicacion, salud, 500, funcionalidadDeAgregado, funcionalidadDeVerificacion);
 	}
 
 	// Test de getters
 
 	@Test
 	void getUbicacionesTest() {
-		assertEquals(ubiMock, ioleta.getUbicacion());
+		assertEquals(ubicacion, organizacion.getUbicacion());
 
 	}
 
 	@Test
 	void getTipoDeOrganizacionTest() {
-		assertEquals(TipoDeOrganizacion.Salud, ioleta.getTipoDeOrganizacion());
+		assertEquals(TipoDeOrganizacion.Salud, organizacion.getTipoDeOrganizacion());
 	}
 
 	@Test
-	void getCantidadDeEmpleados() {
-		assertEquals(500, ioleta.getCantidadDeEmpleados());
+	void getCantidadDeEmpleadosTest() {
+		assertEquals(500, organizacion.getCantidadDeEmpleados());
+	}
+	
+	@Test
+	void unaOrganizacionCambiaDeFuncionalidadParaAgregarMuestra() {
+		
+		FuncionalidadExterna nuevaFuncionalidad = mock(FuncionalidadExterna.class);
+		
+		organizacion.setFuncionalidadExternaNuevaMuestra(nuevaFuncionalidad);
+		
+		verifyNoInteractions(nuevaFuncionalidad);
+	}
+	
+	@Test
+	void unaOrganizacionCambiaDeFuncionalidadParaVerificarMuestra() {
+		
+		FuncionalidadExterna nuevaFuncionalidad = mock(FuncionalidadExterna.class);
+		
+		organizacion.setFuncionalidadExternaVerificacion(nuevaFuncionalidad);
+		
+		verifyNoInteractions(nuevaFuncionalidad);
+	}
+	
+	@Test
+	void cuandoSeAgregaUnaNuevaMuestra_LaFuncionalidadExternaDeMuestraEjecutaUnEvento() {
+		
+		organizacion.updateNuevaMuestra(muestra, zona);
+		
+		verify(funcionalidadDeAgregado).nuevoEvento(organizacion, zona, muestra);
+		
+	}
+	
+	@Test
+	void cuandoSeVerificaUnaMuestra_LaFuncionalidadExternaDeVerifiacionEjecutaUnEvento() {
+		
+		organizacion.updateVerificacionDeMuestra(muestra, zona);
+		
+		verify(funcionalidadDeVerificacion).nuevoEvento(organizacion, zona, muestra);
+		
 	}
 
 }
