@@ -28,7 +28,7 @@ class EventManajerTest {
 
 		event1.notificar(muesMock);
 
-		verify(obsMock, times(1)).agregarMuestra(muesMock);
+		verify(obsMock, times(1)).updateMuestra(muesMock);
 	}
 
 	@Test
@@ -38,7 +38,7 @@ class EventManajerTest {
 
 		event1.notificar(muesMock);
 
-		verify(obsMock, never()).agregarMuestra(muesMock);
+		verify(obsMock, never()).updateMuestra(muesMock);
 	}
 
 }

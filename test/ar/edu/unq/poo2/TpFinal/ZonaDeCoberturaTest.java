@@ -61,7 +61,7 @@ class ZonaDeCoberturaTest {
 		when(ubiMock.distancia(ubiMock2)).thenReturn(800d);
 
 		// lanzo el mensaje
-		zone0.agregarMuestra(muestraMock);
+		zone0.updateMuestra(muestraMock);
 
 		// Verifico si reciben los mensajes
 		verify(muestraMock).getUbicacion();
@@ -79,7 +79,7 @@ class ZonaDeCoberturaTest {
 		when(ubiMock.distancia(ubiMock2)).thenReturn(400d);
 
 		// lanzo el mensaje
-		zone0.agregarMuestra(muestraMock);
+		zone0.updateMuestra(muestraMock);
 
 		// Verifico si reciben los mensajes
 		verify(muestraMock).getUbicacion();
