@@ -14,6 +14,7 @@ public class OrganizacionNoGubernamental implements IObserverOrganizacion {
 		this.tipoDeOrganizacion = tipOrga;
 		this.funcionalidadDeAgregado = funcionalidadDeAgregado;
 		this.funcionalidadDeVerificacion = funcionalidadDeVerificacion;
+		
 	}
 
 	public int getCantidadDeEmpleados() {

@@ -123,5 +123,16 @@ class ZonaDeCoberturaTest {
 		
 		assertEquals(List.of(zoneMock1),zonas);
 	}
+	
+	@Test
+	void test_cuandoSeAgregaUnaMuestra_SeNotificaALosObservers() {
+		
+		when(muestraMock.getUbicacion()).thenReturn(ubiMock2);
+		when(ubiMock.distancia(ubiMock2)).thenReturn(400d);
+		
+		zone0.updateMuestra(muestraMock);
+		
+		verify(muestraMock).agregarZona(zone0);
+	}
 
 }

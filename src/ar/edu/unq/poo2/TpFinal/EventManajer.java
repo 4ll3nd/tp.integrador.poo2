@@ -9,6 +9,7 @@ public class EventManajer {
 
 	public EventManajer() {
 		observadores = new ArrayList<IObserverNuevaMuestra>();
+		
 	}
 
 	public void suscribir(IObserverNuevaMuestra observador) {

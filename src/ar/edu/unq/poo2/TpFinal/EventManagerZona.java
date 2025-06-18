@@ -31,6 +31,7 @@ public class EventManagerZona {
 		else if(event == "Agregado") {
 			
 			notificarAgregadoDeMuestra(event, muestra, zona);
+			
 		}
 		
 	}

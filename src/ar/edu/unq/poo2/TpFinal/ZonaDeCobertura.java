@@ -42,8 +42,8 @@ public class ZonaDeCobertura implements IObserverNuevaMuestra, IObserverMuestraV
 		if (this.estaEnZona(muestra)) {
 			
 			muestras.add(muestra);
-			muestra.agregarZona(this);
 			notificarAgregadoDe(muestra);
+			muestra.agregarZona(this);
 		}
 		
 	}
@@ -56,14 +56,10 @@ public class ZonaDeCobertura implements IObserverNuevaMuestra, IObserverMuestraV
 	@Override
 	public void updateMuestraVerificada(Muestra muestra) {
 		
-		notificarVerificacion(muestra);
-	}
-
-	private void notificarVerificacion(Muestra muestra) {
-		
 		this.eventManagerZona.notificar("Verificación", muestra, this);
 	}
 
+	
 	private boolean estaEnZona(Muestra muestra) {
 		
 		return epicentro.distancia( muestra.getUbicacion()) <= this.radio;

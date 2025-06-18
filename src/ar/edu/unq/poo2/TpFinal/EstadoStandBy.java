@@ -1,8 +1,11 @@
 package ar.edu.unq.poo2.TpFinal;
 
 public class EstadoStandBy implements IEstadoDeMuestra{
+	
 	public void agregarOpinion(Muestra muestra, IOpinion unaOpinion) {
+		
 	  if(this.existeMismaOpinion(muestra, unaOpinion) && unaOpinion.getVoto() == Voto.VotoDeExperto) {
+		  
 			muestra.setEstado(new EstadoVerificado());
 			this.notificarCambioDeEstadoAZonasDeCobertura(muestra);
 			muestra.doAgregarOpinion(unaOpinion);
