@@ -53,4 +53,14 @@ class EstadoVerificadoTest {
 		
 		assertEquals("Chinche Foliada", verificado.resultadoActual(muestra));
 	}
+	
+	@Test
+	void testSePreguntaAlEstadoVerificadoSiEsDeOtroPosibleEstadoYEsElMismo() {
+		assertTrue(verificado.estaEn("Verificado"));
+	}
+	
+	@Test
+	void testSePreguntaAlEstadoVerificadoSiEsDeOtroPosibleEstadoYNoEsElMismo() {
+		assertFalse(verificado.estaEn("StandBy"));
+	}
 }

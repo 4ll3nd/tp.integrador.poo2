@@ -4,6 +4,7 @@ public class EstadoStandBy implements IEstadoDeMuestra{
 	public void agregarOpinion(Muestra muestra, IOpinion unaOpinion) {
 	  if(this.existeMismaOpinion(muestra, unaOpinion) && unaOpinion.getVoto() == Voto.VotoDeExperto) {
 			muestra.setEstado(new EstadoVerificado());
+			this.notificarCambioDeEstadoAZonasDeCobertura(muestra);
 			muestra.doAgregarOpinion(unaOpinion);
 		}
 		else {
@@ -46,7 +47,11 @@ public class EstadoStandBy implements IEstadoDeMuestra{
 							         .getOpinion();
 		
 	}
-
+	
+	public void notificarCambioDeEstadoAZonasDeCobertura(Muestra muestra) {
+		muestra.getObserverVerificacion().stream().forEach(m -> m.updateMuestraVerificada(muestra));
+	}
+	
 	@Override
 	public boolean estaEn(String estadoPosible) {
 		return estadoPosible.equalsIgnoreCase("StandBy");

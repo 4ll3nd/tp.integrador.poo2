@@ -3,7 +3,7 @@ package ar.edu.unq.poo2.TpFinal;
 import java.time.LocalDate;
 import java.util.List;
 
-public class UltimaVotacion implements Buscador {
+public class UltimaVotacion implements Filtro {
 	private LocalDate fechaDeOpinion;
 	public UltimaVotacion(LocalDate fechaDeOpinion) {
 		this.fechaDeOpinion = fechaDeOpinion;

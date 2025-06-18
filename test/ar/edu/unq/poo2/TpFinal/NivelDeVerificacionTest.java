@@ -71,4 +71,9 @@ class NivelDeVerificacionTest {
 		assertTrue(busquedaStandBy.filtrar(muestras).contains(muestra3));
 		assertFalse(busquedaStandBy.filtrar(muestras).contains(muestra4));
 	}
+	
+	@Test
+	void testUnBuscadorSeInicializaConUnNivelDeVerificacionVerificado() {
+		assertEquals("Verificado", busquedaVerificada.getNivelDeVerificacion());
+	}
 }

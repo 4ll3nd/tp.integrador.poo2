@@ -12,7 +12,7 @@ public class Muestra {
 	private IFoto foto;
 	private List<IOpinion> opiniones = new ArrayList<IOpinion>();
 	private IEstadoDeMuestra estado;
-	private List<ZonaDeCobertura> zonasDeCobertura = new ArrayList<ZonaDeCobertura>();
+	private List<IObserverMuestraVerificada> observersVerificacion = new ArrayList<IObserverMuestraVerificada>();
 	private Integer creador;
 	public Muestra(EspecieVinchuca especie, Ubicacion ubicacion, LocalDate fechaDeSubida, IFoto foto, 
 			Participante creador) {
@@ -48,12 +48,12 @@ public class Muestra {
 		return this.creador;
 	}
 
-	public List<ZonaDeCobertura> getZonasDeCobertura() {
-		return zonasDeCobertura;
+	public List<IObserverMuestraVerificada> getObserverVerificacion() {
+		return observersVerificacion;
 	}
 
 	public void agregarZona(ZonaDeCobertura zona) {
-		this.zonasDeCobertura.add(zona);
+		this.observersVerificacion.add(zona);
 	}
 
 	public void agregarOpinion(IOpinion unaOpinion) {
@@ -75,10 +75,6 @@ public class Muestra {
 	
 	protected void doAgregarOpinion(IOpinion unaOpinion) {
 		this.opiniones.add(unaOpinion);
-	}
-	
-	public void notificarVerificacion() {
-		//en un futuro se le dara un metodo
 	}
 
 	public boolean estaEn(String estadoPosible) {

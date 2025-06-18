@@ -92,4 +92,30 @@ class EstadoStandByTest {
 		
 		assertEquals("Poco Clara", standBy.resultadoActual(muestra));
 	}
+	
+	@Test
+	void testEstadoStandByComparaSuEstadoConOtroPosibleYSonIguales() {
+		assertTrue(standBy.estaEn("StandBy"));
+	}
+	
+	@Test
+	void testEstadoStandByComparaSuEstadoConOtroPosibleYSonDistintos() {
+		assertFalse(standBy.estaEn("Verificado"));
+	}
+	
+	@Test
+	void testEstadoStandByCambiaDeEstadoYNotificaAlasZonasDeCoberturaDeLaMuestra() {
+		when(muestra.getOpiniones()).thenReturn(Arrays.asList(opinionVinchuca, opinionPocoClara));
+		when(opinionVinchuca.getOpinion()).thenReturn("Vinchuca");
+		when(opinionPocoClara.getOpinion()).thenReturn("Poco Clara");
+		when(opinion.getOpinion()).thenReturn("Poco Clara");
+		when(opinion.getVoto()).thenReturn(Voto.VotoDeExperto);
+		
+		standBy.agregarOpinion(muestra, opinion);
+		
+		verify(muestra).doAgregarOpinion(opinion);
+		//si pide las zonas de cobertura es porque las va a notificar
+		verify(muestra).getObserverVerificacion();
+	}
+	
 }
