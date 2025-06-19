@@ -10,39 +10,34 @@ public class Participante {
 	private List<IOpinion> opiniones;
 	private Integer id;
 	private EstadoDeCategoria estado;
-	private ValidacionDeConocimiento conocimiento;
 	
-	public Participante(Integer id, ConocimientoDeEspecialista conocimiento) {
-		
-		initialize(id);
-		conocimiento.validarA(this);
-	}
-	
-	public Participante(Integer id) {
-		
-		initialize(id);
-		this.conocimiento = new ConocimientoNulo("Sin conocimientos");
-		this.conocimiento.validarA(this);
-	}
-	
-	public void ascenderAEspecialista() {
-		
-		setEstado(new EstadoParaEspecialista());
-	}
-	
-	private void initialize(Integer id) {
+	public Participante(Integer id, Boolean esEspecialista) {
 		
 		initializeMuestras();
 		initializeOpiniones();
+		initializeEstado(esEspecialista);
 		this.id = id;
 	}
-
+	
+	
+	private void initializeEstado(Boolean esEspecialista) {
+		
+		if(esEspecialista) {
+			
+			setEstado(new EstadoParaEspecialista());
+		}
+		else {
+			
+			setEstado(new EstadoParaBasico());
+		}
+	}
+	
 	void agregarOpinion(IOpinion unaOpinion) {
 		
 		getOpiniones().add(unaOpinion);
 	}
 
-	public int getId() {
+	public Integer getId() {
 		
 		return this.id;
 	}
@@ -108,7 +103,7 @@ public class Participante {
 	}
 
 	private Boolean hayMasCantidadDeOpiniones(Integer cantidad) {
-		
+	
 		return opinionesHace30Dias() > cantidad;
 	}
 
@@ -138,17 +133,4 @@ public class Participante {
 		
 		getEstado().cambiarCategoria(this);
 	}
-
-	void comenzarDeCero() {
-		
-		setEstado(new EstadoParaBasico());
-	}
-
-	void validarConocimiento() {
-		
-		setEstado(new EstadoParaEspecialista());
-		
-	}
-
-
 }

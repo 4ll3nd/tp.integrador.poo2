@@ -12,7 +12,7 @@ public abstract class EstadoDeCategoria {
 	void cambiarCategoria(Participante participante) {
 		
 		if(participante.esPromocionable()) {
-			
+	
 			subirCategoria(participante);
 		}
 		else {

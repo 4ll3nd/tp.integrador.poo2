@@ -1,5 +1,6 @@
 package ar.edu.unq.poo2.TpFinal;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -41,6 +42,24 @@ class EstadoParaExpertoTest {
 	void test_unEstadoParaExpertoBajaDeCategoria() {
 		
 		estado.bajarCategoria(participante);
+		
+		verify(participante).setEstado(any());
+	}
+	
+	@Test
+	void test_unEstadoParaExpertoNoSubeDeCategoria() {
+		
+		estado.subirCategoria(participante);
+		
+		verifyNoInteractions(participante);
+	}
+	
+	@Test
+	void test_cuandoUnParticipanteNoEsPromocionable_BajaDeCategoria() {
+		
+		when(participante.esPromocionable()).thenReturn(false);
+		
+		estado.cambiarCategoria(participante);
 		
 		verify(participante).setEstado(any());
 	}

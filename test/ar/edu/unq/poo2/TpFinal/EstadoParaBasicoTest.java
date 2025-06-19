@@ -28,12 +28,20 @@ class EstadoParaBasicoTest {
 		
 		verify(participante).setEstado(any());
 	}
+	
+	@Test
+	void test_unEstadoParaBasicoNoBajaDeCategoria() {
+
+		estado.bajarCategoria(participante);
+		
+		verifyNoInteractions(participante);
+	}
 
 	@Test
 	void test_unEstadoParaBasicoGeneraUnaOpinion() {
 		
 		estado.opinar(tipoDeOpinion, muestra, participante);
-		
+	
 		verify(participante).agregarOpinion(any());
 	}
 	
@@ -43,6 +51,16 @@ class EstadoParaBasicoTest {
 		estado.opinar(tipoDeOpinion, muestra, participante);
 		
 		verify(muestra).agregarOpinion(any());
+	}
+	
+	@Test
+	void test_cuandoUnParticipanteEsPromocionable_SubeDeCategoria() {
+		
+		when(participante.esPromocionable()).thenReturn(true);
+		
+		estado.cambiarCategoria(participante);
+		
+		verify(participante).setEstado(any());
 	}
 
 }

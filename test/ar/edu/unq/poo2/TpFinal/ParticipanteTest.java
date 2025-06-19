@@ -21,7 +21,7 @@ class ParticipanteTest {
 		opinion = mock(IOpinion.class);
 		tipoDeOpinion = mock(ITipoDeOpinion.class);
 		muestra = mock(Muestra.class);
-		participante = new Participante(1);
+		participante = new Participante(1, false);
 	}
 
 	@Test
@@ -75,34 +75,75 @@ class ParticipanteTest {
 	}
 	
 	@Test
-	void test_unParticipanteNoPromocionableSoloCumpleConMasDe10Muestas() throws Exception  {
+	void test_unParticipanteNoPromocionableSoloCumpleConMasDe10EnviosDeMuestas() throws Exception  {
 		
-		when(muestra.getFechaDeSubida()).thenReturn(LocalDate.of(1, 2, 3));
+		when(muestra.getFechaDeSubida()).thenReturn(LocalDate.now().minusDays(15));
 		
 		agregarCantidadDeMuestras(participante, muestra, 11);
 
 		assertFalse(participante.esPromocionable());
+		
+		verify(muestra, times(11)).getFechaDeSubida();
 	}
-	
+
+
 	@Test
-	void test_unParticipanteNoPromocionableSoloCumpleConMasDe20Opiniones() throws Exception  {
+	void test_unParticipanteNoPromocionableSoloCumpleConMasDe2opiniones() throws Exception  {
 		
-		when(muestra.getFechaDeSubida()).thenReturn(LocalDate.of(2025, 6, 5));
+		when(opinion.getFecha()).thenReturn(LocalDate.now().minusDays(15));
+		when(muestra.getFechaDeSubida()).thenReturn(LocalDate.now().minusDays(15));
 		
-		agregarCantidadDeOpiniones(participante, tipoDeOpinion, 2);
+		agregarCantidadDeOpiniones(participante, opinion, 2);
+		agregarCantidadDeMuestras(participante, muestra, 11);
 		
 		assertFalse(participante.esPromocionable());
+		
+		verify(opinion, times(2)).getFecha();
+	}
+	
+	
+	@Test
+	void test_noEsPromocionableSiLasMuestrasFueronEnviadasHaceMasDe30Dias() throws Exception  {
+		
+		when(muestra.getFechaDeSubida()).thenReturn(LocalDate.now().minusDays(36));
+		when(opinion.getFecha()).thenReturn(LocalDate.now().minusDays(15));
+		
+		agregarCantidadDeOpiniones(participante, opinion, 22);
+		agregarCantidadDeMuestras(participante, muestra, 11);
+
+		assertFalse(participante.esPromocionable());
+		
+		verify(muestra, times(11)).getFechaDeSubida();
 	}
 	
 	@Test
-	void test_esPromocionableSiCumpleConMasDe20OpinionesyMasDe10Muestras() throws Exception  {
+	void test_noEsPromocionableSiLasOpinionesFueronHaceMasDe30Dias() throws Exception  {
 		
-		when(muestra.getFechaDeSubida()).thenReturn(LocalDate.of(2025, 6, 5));
+		when(muestra.getFechaDeSubida()).thenReturn(LocalDate.now().minusDays(15));
+		when(opinion.getFecha()).thenReturn(LocalDate.now().minusDays(36));
 		
+		agregarCantidadDeOpiniones(participante, opinion, 22);
 		agregarCantidadDeMuestras(participante, muestra, 11);
-		agregarCantidadDeOpiniones(participante, tipoDeOpinion, 21);
+
+		assertFalse(participante.esPromocionable());
 		
+		verify(opinion, times(22)).getFecha();
+		verify(muestra, times(11)).getFechaDeSubida();
+	}
+	
+	@Test
+	void test_cumpleSiEnLosUltimos30DiasEnvioMasDe20OpinionesyMasDe10Muestras() throws Exception  {
+		
+		when(muestra.getFechaDeSubida()).thenReturn(LocalDate.now().minusDays(15));
+		when(opinion.getFecha()).thenReturn(LocalDate.now().minusDays(15));
+		
+		agregarCantidadDeOpiniones(participante, opinion, 22);
+		agregarCantidadDeMuestras(participante, muestra, 11);
+
 		assertTrue(participante.esPromocionable());
+		
+		verify(opinion, times(22)).getFecha();
+		verify(muestra, times(11)).getFechaDeSubida();
 	}
 
 	@Test
@@ -116,10 +157,11 @@ class ParticipanteTest {
 	@Test
 	void test_unParticipanteCambiaDeCategoriaSiEsPromocionable() throws Exception  {
 		
-		when(muestra.getFechaDeSubida()).thenReturn(LocalDate.of(2025, 6, 5));
+		when(muestra.getFechaDeSubida()).thenReturn(LocalDate.now().minusDays(15));
+		when(opinion.getFecha()).thenReturn(LocalDate.now().minusDays(15));
 		
+		agregarCantidadDeOpiniones(participante, opinion, 22);
 		agregarCantidadDeMuestras(participante, muestra, 11);
-		agregarCantidadDeOpiniones(participante, tipoDeOpinion, 21);
 		
 		participante.cambiarCategoria();
 		
@@ -129,14 +171,14 @@ class ParticipanteTest {
 	@Test
 	void test_unParticipanteConConocimientoValidadoPuedeAgregarOpiniones() throws Exception  {
 		
-		Participante especialista = new Participante(1, new ConocimientoDeEspecialista("Detección de vinchucas"));
+		Participante especialista = new Participante(1, true);
 		
 		especialista.opinar(tipoDeOpinion, muestra);
 		
 		verify(muestra).agregarOpinion(any());
 	}
 	
-	private void agregarCantidadDeMuestras(Participante participante, Muestra unaMuestra, int cantidad) {
+	private void agregarCantidadDeMuestras(Participante participante, Muestra unaMuestra, Integer cantidad) {
 		
 		while(cantidad > 0) {
 			
@@ -145,13 +187,12 @@ class ParticipanteTest {
 		}
 	}
 	
-	private void agregarCantidadDeOpiniones(Participante participante, ITipoDeOpinion tipoDeOpinion, int cantidad) throws Exception {
+	private void agregarCantidadDeOpiniones(Participante participante, IOpinion opinion, int cantidad) {
 		
 		while(cantidad > 0) {
 			
-			participante.opinar(tipoDeOpinion, mock(Muestra.class));
+			participante.agregarOpinion(opinion);
 			cantidad--;
 		}
-		
 	}
 }
