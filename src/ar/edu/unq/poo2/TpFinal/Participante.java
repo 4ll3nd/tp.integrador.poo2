@@ -13,8 +13,10 @@ public class Participante {
 	
 	public Participante(Integer id, Boolean esEspecialista) {
 		
-		initialize(id);
+		initializeMuestras();
+		initializeOpiniones();
 		initializeEstado(esEspecialista);
+		this.id = id;
 	}
 	
 	
@@ -30,20 +32,12 @@ public class Participante {
 		}
 	}
 	
-	
-	private void initialize(Integer id) {
-		
-		initializeMuestras();
-		initializeOpiniones();
-		this.id = id;
-	}
-
 	void agregarOpinion(IOpinion unaOpinion) {
 		
 		getOpiniones().add(unaOpinion);
 	}
 
-	public int getId() {
+	public Integer getId() {
 		
 		return this.id;
 	}
@@ -138,16 +132,5 @@ public class Participante {
 	public void cambiarCategoria() {
 		
 		getEstado().cambiarCategoria(this);
-	}
-
-	void comenzarDeCero() {
-		
-		setEstado(new EstadoParaBasico());
-	}
-
-	void validarConocimiento() {
-		
-		setEstado(new EstadoParaEspecialista());
-		
 	}
 }
