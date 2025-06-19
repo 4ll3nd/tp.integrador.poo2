@@ -21,7 +21,7 @@ class ParticipanteTest {
 		opinion = mock(IOpinion.class);
 		tipoDeOpinion = mock(ITipoDeOpinion.class);
 		muestra = mock(Muestra.class);
-		participante = new Participante(1);
+		participante = new Participante(1, false);
 	}
 
 	@Test
@@ -129,7 +129,7 @@ class ParticipanteTest {
 	@Test
 	void test_unParticipanteConConocimientoValidadoPuedeAgregarOpiniones() throws Exception  {
 		
-		Participante especialista = new Participante(1, new ConocimientoDeEspecialista("Detección de vinchucas"));
+		Participante especialista = new Participante(1, true);
 		
 		especialista.opinar(tipoDeOpinion, muestra);
 		

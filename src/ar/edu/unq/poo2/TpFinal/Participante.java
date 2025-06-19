@@ -10,25 +10,26 @@ public class Participante {
 	private List<IOpinion> opiniones;
 	private Integer id;
 	private EstadoDeCategoria estado;
-	private ValidacionDeConocimiento conocimiento;
 	
-	public Participante(Integer id, ConocimientoDeEspecialista conocimiento) {
+	public Participante(Integer id, Boolean esEspecialista) {
 		
 		initialize(id);
-		conocimiento.validarA(this);
+		initializeEstado(esEspecialista);
 	}
 	
-	public Participante(Integer id) {
+	
+	private void initializeEstado(Boolean esEspecialista) {
 		
-		initialize(id);
-		this.conocimiento = new ConocimientoNulo("Sin conocimientos");
-		this.conocimiento.validarA(this);
+		if(esEspecialista) {
+			
+			setEstado(new EstadoParaEspecialista());
+		}
+		else {
+			
+			setEstado(new EstadoParaBasico());
+		}
 	}
 	
-	public void ascenderAEspecialista() {
-		
-		setEstado(new EstadoParaEspecialista());
-	}
 	
 	private void initialize(Integer id) {
 		
@@ -149,6 +150,4 @@ public class Participante {
 		setEstado(new EstadoParaEspecialista());
 		
 	}
-
-
 }
