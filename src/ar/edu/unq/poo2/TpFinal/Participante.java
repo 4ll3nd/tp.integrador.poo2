@@ -103,7 +103,7 @@ public class Participante {
 	}
 
 	private Boolean hayMasCantidadDeOpiniones(Integer cantidad) {
-		
+	
 		return opinionesHace30Dias() > cantidad;
 	}
 
