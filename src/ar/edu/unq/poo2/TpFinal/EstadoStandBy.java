@@ -1,10 +1,13 @@
 package ar.edu.unq.poo2.TpFinal;
 
-public class EstadoStandBy implements IEstadoDeMuestra{
+import java.util.ArrayList;
+import java.util.List;
+
+public class EstadoStandBy extends IEstadoDeMuestra{
 	
 	public void agregarOpinion(Muestra muestra, IOpinion unaOpinion) {
 		
-	  if(this.existeMismaOpinion(muestra, unaOpinion) && unaOpinion.getVoto() == Voto.VotoDeExperto) {
+	  if(this.existeMismaOpinion(muestra, unaOpinion) && unaOpinion.tieneVoto(Voto.VotoDeExperto)) {
 		  
 			muestra.setEstado(new EstadoVerificado());
 			this.notificarCambioDeEstadoAZonasDeCobertura(muestra);
@@ -36,20 +39,6 @@ public class EstadoStandBy implements IEstadoDeMuestra{
 		return muestra.getOpiniones().stream().
 				anyMatch(o -> o.getOpinion().equalsIgnoreCase(unaOpinion.getOpinion()));
 	}
-	/*PROPOSITO: obtener el resultado actual de la muestra dada
-	 * OBSERVACION: en este caso este estado solo le interesan las opiniones de un experto
-	 * entonces solamente las filtro de las de los basico, ademas, en este estado
-	 * se que solo hay una opinion de un experto. Si hubiera mas seria otro estado.
-	 * */
-	@Override
-	public String resultadoActual(Muestra muestra) {
-		return muestra.getOpiniones().stream()
-							         .filter(o -> o.getVoto() == Voto.VotoDeExperto)
-							         .toList()
-							         .getFirst()
-							         .getOpinion();
-		
-	}
 	
 	public void notificarCambioDeEstadoAZonasDeCobertura(Muestra muestra) {
 		muestra.getObserverVerificacion().stream().forEach(m -> m.updateMuestraVerificada(muestra));
@@ -58,5 +47,16 @@ public class EstadoStandBy implements IEstadoDeMuestra{
 	@Override
 	public boolean estaEn(String estadoPosible) {
 		return estadoPosible.equalsIgnoreCase("StandBy");
+	}
+	//aclaracion: no se agrega la especie, porque en el standby siempre hay minimo 1 experto, entonces 
+	//se le tiene mas importancia a ese tipo de opinion que la especie.
+	@Override
+	protected List<String> doFiltrarOpiniones(Muestra muestra) {
+		List<String> opinionStr = new ArrayList<String>();
+		for(IOpinion o: muestra.getOpiniones().stream()
+				.filter(o->o.tieneVoto(Voto.VotoDeExperto)).toList()) {
+			opinionStr.add(o.getOpinion());
+		}
+		return opinionStr;
 	}
 }

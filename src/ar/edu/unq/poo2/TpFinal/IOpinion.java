@@ -8,4 +8,5 @@ public interface IOpinion {
 	Integer getId();
 	Voto getVoto();
 	LocalDate getFecha();
+	boolean tieneVoto(Voto voto);
 }

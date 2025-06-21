@@ -67,4 +67,9 @@ public class Opinion implements IOpinion {
 		return this.fecha;
 	}
 
+	@Override
+	public boolean tieneVoto(Voto voto) {
+		return this.getVoto().equals(voto);
+	}
+
 }
