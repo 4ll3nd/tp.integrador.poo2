@@ -5,19 +5,34 @@ import java.util.List;
 
 public class Sistema {
 	private List<Muestra> muestras;
-	private EventManajer manejador;
+	private List<IObserverNuevaMuestra> observadores;
 
 	public Sistema() {
 		muestras = new ArrayList<Muestra>();
-		manejador= new EventManajer();
+		observadores = new ArrayList<IObserverNuevaMuestra>();
 	}
 
 	public void agregarMuestra(Muestra muestra, Participante participante) {
 		muestras.add(muestra);
-		
-		manejador.notificar(muestra);
-		
+
+		this.notificar(muestra);
+
 		participante.agregarMuestra(muestra);
+	}
+
+	public void suscribir(IObserverNuevaMuestra observador) {
+		observadores.add(observador);
+
+	}
+
+	public void notificar(Muestra muestra) {
+		observadores.stream().forEach(obs -> obs.updateMuestra(muestra));
+
+	}
+
+	public void deSuscribir(IObserverNuevaMuestra observador) {
+		observadores.remove(observador);
+
 	}
 
 }
