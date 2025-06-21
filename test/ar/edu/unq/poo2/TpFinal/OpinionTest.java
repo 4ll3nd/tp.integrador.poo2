@@ -11,12 +11,13 @@ import org.junit.jupiter.api.Test;
 class OpinionTest {
 	
 	private Opinion opinion;
+	private Opinion otraOpinion;
 	private ITipoDeOpinion tipoDeOpinion;
 	private LocalDate fecha;
 
 	@BeforeEach
 	void setUp() throws Exception {
-		
+		otraOpinion = new Opinion(fecha, 1, Voto.VotoDeExperto, tipoDeOpinion);
 		tipoDeOpinion = mock(ITipoDeOpinion.class);
 		fecha = LocalDate.of(1, 1, 3);
 		opinion = new Opinion(fecha, 1, Voto.VotoDeBasico, tipoDeOpinion);
@@ -47,5 +48,14 @@ class OpinionTest {
 				
 		assertEquals(fecha, opinion.getFecha());
 	}
-
+	
+	@Test
+	void test_unaOpinionNoTieneUnVotoExperto() {
+		assertFalse(opinion.tieneVoto(Voto.VotoDeExperto));
+	}
+	
+	@Test
+	void test_unaOpinionTieneUnVotoExperto() {
+		assertTrue(otraOpinion.tieneVoto(Voto.VotoDeExperto));
+	}
 }

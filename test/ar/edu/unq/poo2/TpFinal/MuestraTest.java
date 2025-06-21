@@ -125,7 +125,7 @@ class MuestraTest {
 	
 	@Test
 	void testSeAgregaUnaOpinionDeUnExpertoYNoSeAgregaOtraOpinionDeUnBasico() {
-		when(opinion.getVoto()).thenReturn(Voto.VotoDeExperto);
+		when(opinion.tieneVoto(Voto.VotoDeExperto)).thenReturn(true);
 		when(opinion.getOpinion()).thenReturn("Poco Clara");
 		
 		when(otraOpinion.getVoto()).thenReturn(Voto.VotoDeBasico);

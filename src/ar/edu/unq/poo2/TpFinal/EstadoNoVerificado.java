@@ -7,11 +7,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collector;
 
-public class EstadoNoVerificado implements IEstadoDeMuestra {
+public class EstadoNoVerificado extends IEstadoDeMuestra {
 
 	@Override
 	public void agregarOpinion(Muestra muestra, IOpinion unaOpinion) {
-		if(unaOpinion.getVoto() == Voto.VotoDeExperto) {
+		if(unaOpinion.tieneVoto(Voto.VotoDeExperto)) {
 			muestra.setEstado(new EstadoStandBy());
 			muestra.doAgregarOpinion(unaOpinion);
 		}
@@ -19,42 +19,19 @@ public class EstadoNoVerificado implements IEstadoDeMuestra {
 			muestra.doAgregarOpinion(unaOpinion);
 		}
 	}
-	/**PROPOSITO: obtener el resultado actual de la muestra dada
-	 * */
-	public String resultadoActual(Muestra muestra) {
-		//en base a la lista de opiniones de la muestra obtengo una lista de String
+
+	@Override
+	public boolean estaEn(String estadoPosible) {
+		return estadoPosible.equalsIgnoreCase("No Verificado");
+	}
+	
+	@Override
+	protected List<String> doFiltrarOpiniones(Muestra muestra) {
 		List<String> opinionStr = new ArrayList<String>();
 		for(IOpinion o: muestra.getOpiniones()) {
 			opinionStr.add(o.getOpinion());
 		}
 		opinionStr.add(muestra.getEspecie().getNombre());
-		
-		//inicializo un map para guardar asociaciones Key<String> value<Integer>
-		//donde la key es el string y su value es la ocurrencia de ese string en la lista
-		Map<String, Integer> ocurrencias = new HashMap<>();
-		
-		for(String s: opinionStr) {
-			ocurrencias.put(s, ocurrencias.getOrDefault(s, 0) + 1);
-		}
-		/*getOrDefault:
-		 * “Buscá cuántas veces apareció s. Si nunca apareció, 
-		 * considerá que apareció 0 veces. Después sumale 1 porque acaba de aparecer una vez más.”
-		 * */
-
-		String masFrecuente = "";
-		int maxOcurrencia = 0;
-		//recorro un set con las entradas del map, para encontrar aquella que tenga
-		//una mayor ocurrencia y retornar la clave de esa entrada
-		for(Map.Entry<String, Integer> entrada:ocurrencias.entrySet()) {
-			if(entrada.getValue() > maxOcurrencia) {
-				masFrecuente = entrada.getKey();
-				maxOcurrencia = entrada.getValue();
-			}
-		}
-		return masFrecuente;
-	}
-	@Override
-	public boolean estaEn(String estadoPosible) {
-		return estadoPosible.equalsIgnoreCase("No Verificado");
+		return opinionStr;
 	}
 }
