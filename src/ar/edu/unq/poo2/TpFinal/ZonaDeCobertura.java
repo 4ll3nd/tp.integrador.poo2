@@ -84,4 +84,9 @@ public class ZonaDeCobertura implements IObserverNuevaMuestra, IObserverMuestraV
 		
 		this.eventManagerZona.desuscribir(event, organizacion);
 	}
+
+	void setManager(EventManagerZona manager) {
+		this.eventManagerZona = manager;
+		
+	}
 }

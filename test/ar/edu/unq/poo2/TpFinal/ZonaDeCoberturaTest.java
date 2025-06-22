@@ -14,8 +14,8 @@ class ZonaDeCoberturaTest {
 	private Ubicacion ubiMock2;
 	private Muestra muestraMock;
 	private ZonaDeCobertura zoneMock1;
-	private ZonaDeCobertura zoneMock2;
-	private IObserverOrganizacion organizacion;
+	private EventManagerZona managerMock;
+	private IObserverOrganizacion orgaMock;
 
 	@BeforeEach
 	void setUp() throws Exception {
@@ -23,16 +23,16 @@ class ZonaDeCoberturaTest {
 		// Seteo de mocks
 		muestraMock = mock(Muestra.class);
 		zoneMock1 = mock(ZonaDeCobertura.class);
-		zoneMock2 = mock(ZonaDeCobertura.class);
-		
 
 		// Mock de ubicaciones
 		ubiMock2 = mock(Ubicacion.class);
 		ubiMock = mock(Ubicacion.class);
-		
-		// Mock de Observer
-		organizacion = mock(IObserverOrganizacion.class);
-		
+
+		// Mock de Manager
+		managerMock = mock(EventManagerZona.class);
+
+		// Mock de organizacion
+		orgaMock = mock(IObserverOrganizacion.class);
 
 		// SUT Constructor
 		zone0 = new ZonaDeCobertura("Quilmes", ubiMock, 700d);
@@ -96,43 +96,74 @@ class ZonaDeCoberturaTest {
 
 	@Test
 	void testZonasSolapadas0Zonas() {
-		//SetUp
+		// SetUp
 		when(zoneMock1.getEpicentro()).thenReturn(ubiMock2);
 		when(ubiMock2.distancia(ubiMock)).thenReturn(711d);
 		when(zoneMock1.getRadio()).thenReturn(10d);
-		
-		//Excercise
+
+		// Excercise
 		List<ZonaDeCobertura> zonas = zone0.zonasSolapadas(List.of(zoneMock1));
-		
-		//Verify
-		
-		assertEquals(List.of(),zonas);
+
+		// Verify
+
+		assertEquals(List.of(), zonas);
 	}
-	
+
 	@Test
 	void testZonasSolapadas1Zona() {
-		//SetUp
+		// SetUp
 		when(zoneMock1.getEpicentro()).thenReturn(ubiMock2);
 		when(ubiMock2.distancia(ubiMock)).thenReturn(400d);
 		when(zoneMock1.getRadio()).thenReturn(10d);
-		
-		//Excercise
+
+		// Excercise
 		List<ZonaDeCobertura> zonas = zone0.zonasSolapadas(List.of(zoneMock1));
+
+		// Verify
+
+		assertEquals(List.of(zoneMock1), zonas);
+	}
+
+	@Test
+	void test_cuandoSeAgregaUnaMuestra_SeNotificaALosObservers() {
+
+		when(muestraMock.getUbicacion()).thenReturn(ubiMock2);
+		when(ubiMock.distancia(ubiMock2)).thenReturn(400d);
+
+		zone0.updateMuestra(muestraMock);
+
+		verify(muestraMock).agregarZona(zone0);
+	}
+	
+	
+	void setearYSuscribirA(String evento, IObserverOrganizacion obs) {
+		zone0.setManager(managerMock);
+		zone0.suscribir(evento, obs);
+	}	
+	@Test
+	void suscribirEnZonaTest() {
+		// Seteo el mock de manager
 		
-		//Verify
-		
-		assertEquals(List.of(zoneMock1),zonas);
+		this.setearYSuscribirA("Verificación", orgaMock);
+		verify(managerMock, times(1)).suscribir("Verificación", orgaMock);
 	}
 	
 	@Test
-	void test_cuandoSeAgregaUnaMuestra_SeNotificaALosObservers() {
+	void deSuscribirEnZonaTest() {
+		this.setearYSuscribirA("Verificación", orgaMock);
 		
-		when(muestraMock.getUbicacion()).thenReturn(ubiMock2);
-		when(ubiMock.distancia(ubiMock2)).thenReturn(400d);
+		zone0.desuscribir("Verificación", orgaMock);
 		
-		zone0.updateMuestra(muestraMock);
-		
-		verify(muestraMock).agregarZona(zone0);
+		verify(managerMock, times(1)).desuscribir("Verificación", orgaMock);
 	}
-
+	
+	@Test
+	void updateMuestraVerificadaTest() {
+		this.setearYSuscribirA("Verificación", orgaMock);
+		
+		zone0.updateMuestraVerificada(muestraMock);
+		
+		
+		verify(managerMock, times(1)).notificar("Verificación", muestraMock, zone0);
+	}
 }
